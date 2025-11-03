@@ -38,26 +38,22 @@ jobs:
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
-          
+      
           echo "📦 Copying Debian .deb packages into public/pool..."
-            if [ -d "pool/main/p/perfume-composer" ]; then
-            echo "📦 Copying .deb files to public/pool/main/p/perfume-composer/"
-            mkdir -p public/pool/main/p/perfume-composer
-            cp -v pool/main/p/perfume-composer/*.deb public/pool/main/p/perfume-composer/
-          else
-            echo "⚠️  No pool/main/p/perfume-composer folder found!"
-          fi
-
-          echo "🖼️  Copying screenshots..."
+          find pool -type f -name "*.deb" | while read -r deb; do
+            target="public/${deb}"
+            mkdir -p "$(dirname "$target")"
+            cp -v "$deb" "$target"
+          done
+      
+          echo "🖼️ Copying screenshots..."
           mkdir -p public/screenshots
-          if [ -d "screenshots" ]; then
-            cp -r screenshots/* public/screenshots/ || true
-          fi
-
-          echo "🗂️  Building APT indexes..."
+          cp -r screenshots/* public/screenshots/ 2>/dev/null || true
+      
+          echo "🗂️ Building APT indexes..."
           apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
           gzip -kf public/dists/stable/main/binary-amd64/Packages
-
+      
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
