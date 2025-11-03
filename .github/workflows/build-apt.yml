@@ -38,17 +38,25 @@ jobs:
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
-          # ✅ Copy Debian pool without recursion issues
-          rsync -a pool/ public/pool/
-          # ✅ Copy screenshots for AppStream / website
-          mkdir -p public/screenshots
-          rsync -a screenshots/ public/screenshots/ || true
+          
+          echo "📦 Copying Debian .deb packages into public/pool..."
+          if [ -d "pool/main/p/perfume-composer" ]; then
+            mkdir -p public/pool/main/p/perfume-composer
+            cp -r pool/main/p/perfume-composer/* public/pool/main/p/perfume-composer/
+          else
+            echo "⚠️  No pool/main/p/perfume-composer folder found!"
+          fi
 
-          # Build Packages index
+          echo "🖼️  Copying screenshots..."
+          mkdir -p public/screenshots
+          if [ -d "screenshots" ]; then
+            cp -r screenshots/* public/screenshots/ || true
+          fi
+
+          echo "🗂️  Building APT indexes..."
           apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
           gzip -kf public/dists/stable/main/binary-amd64/Packages
 
-          # Build Release file
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
