@@ -38,6 +38,7 @@ jobs:
           mkdir -p public/pool
           rsync -a pool/ public/pool/
           apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
+          sed -i 's#public/##g' public/dists/stable/main/binary-amd64/Packages
           gzip -kf public/dists/stable/main/binary-amd64/Packages
 
           cat > public/dists/stable/Release << 'EOF'
