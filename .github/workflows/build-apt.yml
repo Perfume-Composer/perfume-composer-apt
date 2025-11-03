@@ -1,0 +1,84 @@
+name: Build & Publish APT repo
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install apt-utils
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync
+
+      - name: Import GPG private key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          gpg --list-secret-keys --keyid-format=long
+
+      - name: Prepare repo structure
+        run: |
+          mkdir -p public/dists/stable/main/binary-amd64
+          mkdir -p public/pool
+          rsync -a pool/ public/pool/
+          apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
+          gzip -kf public/dists/stable/main/binary-amd64/Packages
+
+          cat > public/dists/stable/Release << 'EOF'
+          Origin: Perfume Composer
+          Label: Perfume Composer
+          Suite: stable
+          Codename: stable
+          Architectures: amd64
+          Components: main
+          Description: Perfume Composer APT repository
+          EOF
+
+          apt-ftparchive release public/dists/stable >> public/dists/stable/Release
+
+      - name: Sign Release
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          cd public/dists/stable
+          echo "$GPG_PASSPHRASE" | \
+            gpg --batch --yes --passphrase-fd 0 --pinentry-mode loopback \
+            -abs -o Release.gpg Release
+          echo "$GPG_PASSPHRASE" | \
+            gpg --batch --yes --passphrase-fd 0 --pinentry-mode loopback \
+            --clearsign -o InRelease Release
+          cd -
+
+      - name: Include public key
+        run: cp PERFUME-COMPOSER.gpg.key public/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
