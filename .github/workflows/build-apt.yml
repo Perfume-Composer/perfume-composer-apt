@@ -18,15 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout (with LFS support)
         uses: actions/checkout@v4
-
-      # ✅ Add this block to enable Git LFS in the runner
-      - name: Enable Git LFS
-        run: |
-          git lfs install
-          git lfs fetch
-          git lfs pull
+        with:
+          lfs: true  # ✅ fetch Git LFS files automatically      
 
       - name: Install apt-utils
         run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync
