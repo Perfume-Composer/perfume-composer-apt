@@ -40,9 +40,10 @@ jobs:
           mkdir -p public/pool
           
           echo "📦 Copying Debian .deb packages into public/pool..."
-          if [ -d "pool/main/p/perfume-composer" ]; then
+            if [ -d "pool/main/p/perfume-composer" ]; then
+            echo "📦 Copying .deb files to public/pool/main/p/perfume-composer/"
             mkdir -p public/pool/main/p/perfume-composer
-            cp -r pool/main/p/perfume-composer/* public/pool/main/p/perfume-composer/
+            cp -v pool/main/p/perfume-composer/*.deb public/pool/main/p/perfume-composer/
           else
             echo "⚠️  No pool/main/p/perfume-composer folder found!"
           fi
