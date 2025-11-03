@@ -66,6 +66,18 @@ jobs:
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
+
+      - name: Debug repository contents
+        run: |
+          echo "🪞 Showing repository structure:"
+          tree -L 5 public || ls -R public
+          echo
+          echo "🔑 Checking GPG keys:"
+          gpg --list-secret-keys || true
+          echo
+          echo "🧩 Debian package files found:"
+          find . -type f -name "*.deb" || true
+
       - name: Sign Release
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
