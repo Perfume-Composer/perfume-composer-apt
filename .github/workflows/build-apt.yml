@@ -39,7 +39,7 @@ jobs:
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
           # Copy Debian pool
-          rsync -a pool/ public/pool/
+          rsync -a --exclude='public/' pool/ public/
           # ✅ Copy screenshots for AppStream / website
           mkdir -p public/screenshots
           rsync -a screenshots/ public/screenshots/ || true
