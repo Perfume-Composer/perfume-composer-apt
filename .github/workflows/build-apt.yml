@@ -36,11 +36,17 @@ jobs:
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
+          # Copy Debian pool
           rsync -a pool/ public/pool/
+          # ✅ Copy screenshots for AppStream / website
+          mkdir -p public/screenshots
+          rsync -a screenshots/ public/screenshots/ || true
+
+          # Build Packages index
           apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
-          sed -i 's#public/##g' public/dists/stable/main/binary-amd64/Packages
           gzip -kf public/dists/stable/main/binary-amd64/Packages
 
+          # Build Release file
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -50,7 +56,6 @@ jobs:
           Components: main
           Description: Perfume Composer APT repository
           EOF
-
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
       - name: Sign Release
