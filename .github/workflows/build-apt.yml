@@ -73,6 +73,26 @@ jobs:
 
       - name: Include public key
         run: cp PERFUME-COMPOSER.gpg.key public/
+        
+      - name: Auto-tag new version and update changelog
+        run: |
+          echo "🧾 Checking for new version..."
+          VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          echo "Detected version: $VERSION"
+
+          if [ -n "$VERSION" ]; then
+            echo "Updating CHANGELOG.md..."
+            DATE=$(date -u +"%Y-%m-%d")
+            echo -e "## v$VERSION — $DATE\n- $(git log -1 --pretty=%s)\n" | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add CHANGELOG.md
+            git commit -m "Update changelog for v$VERSION" || echo "No changelog updates."
+            git tag -a "v$VERSION" -m "Release v$VERSION"
+            git push origin "v$VERSION"
+          else
+            echo "No version detected."
+          fi   
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
