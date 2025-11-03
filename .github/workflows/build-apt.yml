@@ -38,8 +38,8 @@ jobs:
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
-          # Copy Debian pool
-          rsync -a --exclude='public/' pool/ public/
+          # ✅ Copy Debian pool without recursion issues
+          rsync -a pool/ public/pool/
           # ✅ Copy screenshots for AppStream / website
           mkdir -p public/screenshots
           rsync -a screenshots/ public/screenshots/ || true
