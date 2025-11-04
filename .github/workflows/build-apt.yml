@@ -83,6 +83,19 @@ jobs:
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
+      # ✅ ADD THIS SECTION BELOW (new step)
+      - name: Add DEP-11 metadata checksums
+        run: |
+          echo "🧩 Adding DEP-11 metadata to Release file..."
+          cd public/dists/stable
+          echo "" >> Release
+          echo "MD5Sum:" >> Release
+          find main/dep11 -type f -exec md5sum {} \; >> Release
+          echo "" >> Release
+          echo "SHA256:" >> Release
+          find main/dep11 -type f -exec sha256sum {} \; >> Release
+          cd -
+
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
           echo "🧩 Patching AppStream metadata..."
