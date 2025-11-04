@@ -53,11 +53,8 @@ jobs:
           echo "🗂️ Building APT indexes..."
           cd public
 
-          apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
-          gzip -kf dists/stable/main/binary-amd64/Packages
-
-          # First Release file (local one, kept)
-          cat > dists/stable/Release << 'EOF'
+          # ✅ Create proper Release file in the final public directory
+          cat > dists/stable/Release <<'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
           Suite: stable
@@ -65,21 +62,13 @@ jobs:
           Architectures: amd64
           Components: main
           Description: Perfume Composer APT repository
-          EOF
+          EOF          
+          apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
+          gzip -kf dists/stable/main/binary-amd64/Packages
+          
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
-          # Second Release (in public/, kept for compatibility)
-          cat > public/dists/stable/Release << 'EOF'
-          Origin: Perfume Composer
-          Label: Perfume Composer
-          Suite: stable
-          Codename: stable
-          Architectures: amd64
-          Components: main
-          Description: Perfume Composer APT repository
-          EOF
-          apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
       - name: Include AppStream DEP-11 metadata
         run: |
