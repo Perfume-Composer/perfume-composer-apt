@@ -83,17 +83,25 @@ jobs:
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
+      # ✅ Copy DEP-11 metadata first
+      - name: Include AppStream DEP-11 metadata
+        run: |
+          echo "🧩 Including AppStream DEP-11 metadata..."
+          mkdir -p public/dists/stable/main/dep11
+          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
+
       # ✅ ADD THIS SECTION BELOW (new step)
       - name: Add DEP-11 metadata checksums
         run: |
           echo "🧩 Adding DEP-11 metadata to Release file..."
+          mkdir -p public/dists/stable/main/dep11
           cd public/dists/stable
           echo "" >> Release
           echo "MD5Sum:" >> Release
-          find main/dep11 -type f -exec md5sum {} \; >> Release
+          find main/dep11 -type f -exec md5sum {} \; >> Release || true
           echo "" >> Release
           echo "SHA256:" >> Release
-          find main/dep11 -type f -exec sha256sum {} \; >> Release
+          find main/dep11 -type f -exec sha256sum {} \; >> Release || true
           cd -
 
       - name: Patch AppStream metadata (add developer and content rating)
@@ -234,13 +242,7 @@ jobs:
           </html>
           HTML
 
-          sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
-
-      - name: Include AppStream DEP-11 metadata
-        run: |
-          echo "🧩 Including AppStream DEP-11 metadata..."
-          mkdir -p public/dists/stable/main/dep11
-          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
+          sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html      
 
 
       - name: Upload artifact
