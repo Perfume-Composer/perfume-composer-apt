@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.perfumecomposer.app</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Perfume Composer</name>
+  <developer id="io.github.perfume-composer">
+  <name>Perfume Composer Team</name>
+  </developer>  
+  <content_rating type="oars-1.1" />
+  <summary>Professional fragrance composition and formulation tool</summary>
+  <description>
+    <p>Perfume Composer is a professional application designed for perfumers to create, organize, and manage fragrance formulas with precision. It includes IFRA compliance validation, cost-per-gram calculations, and label printing integration.</p>
+    <p>It supports fragrance banks, recipe import/export in JSON and CSV, and automatic label frame management for Bluetooth label printers.</p>
+  </description>  
+  <launchable type="desktop-id">perfume-composer.desktop</launchable>
+  <url type="homepage">https://perfume-composer.github.io/perfume-composer-apt/</url>
+  <url type="bugtracker">https://github.com/Perfume-Composer/perfume-composer-apt/issues</url>
+  <url type="help">https://github.com/Perfume-Composer/perfume-composer-apt/wiki</url>
+
+  <!-- AppStream icons for validation and display -->
+  <icon type="stock">perfume-composer</icon>
+  <icon type="remote">https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png</icon>
+
+  <screenshots>
+  <screenshot type="default">
+    <image>https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png</image>
+    <caption>Professional Perfume Composer.</caption>
+  </screenshot>
+  <screenshot>
+    <image>https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer-screenshot.png</image>
+    <caption>Dark theme for extended comfort and readability.</caption>
+  </screenshot>
+</screenshots>
+
+
+  <releases>
+    <release version="1.0.5" date="2025-11-04">
+      <description>
+        <p>Dark theme overhaul, IFRA improvements, and APT repository integration.</p>
+      </description>
+    </release>
+  </releases>
+
+  <provides>
+    <binary>perfume-composer</binary>
+  </provides>
+
+  <categories>
+    <category>Science</category>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>perfume</keyword>
+    <keyword>fragrance</keyword>
+    <keyword>composition</keyword>
+    <keyword>aroma</keyword>
+  </keywords>
+</component>
