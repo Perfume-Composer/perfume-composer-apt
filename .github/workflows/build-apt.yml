@@ -23,6 +23,9 @@ jobs:
         with:
           lfs: true  # ✅ fetch Git LFS files automatically      
 
+      - name: Pull LFS files
+        run: git lfs pull
+
       - name: Install apt-utils
         run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync tree
 
@@ -39,22 +42,19 @@ jobs:
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
           mkdir -p public/pool
-      
+
           echo "📦 Copying Debian .deb packages into public/pool..."
-          find . -type f -name "*.deb" | while read -r deb; do
-            target="public/${deb}"
-            mkdir -p "$(dirname "$target")"
-            cp -v "$deb" "$target"
-          done
-      
+          # ✅ copy any .deb no matter its depth, preserving folder structure
+          find pool -type f -name "*.deb" -exec cp -v --parents {} public/ \;
+
           echo "🖼️ Copying screenshots..."
           mkdir -p public/screenshots
           cp -r screenshots/* public/screenshots/ 2>/dev/null || true
-      
+
           echo "🗂️ Building APT indexes..."
           apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
           gzip -kf public/dists/stable/main/binary-amd64/Packages
-      
+
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
