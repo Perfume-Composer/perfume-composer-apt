@@ -223,6 +223,12 @@ jobs:
 
           sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
 
+      - name: Include AppStream DEP-11 metadata
+        run: |
+          echo "🧩 Including AppStream DEP-11 metadata..."
+          mkdir -p public/dists/stable/main/dep11
+          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
