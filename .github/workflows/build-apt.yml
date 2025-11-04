@@ -41,10 +41,10 @@ jobs:
       - name: Prepare repo structure
         run: |
           mkdir -p public/dists/stable/main/binary-amd64
-          mkdir -p public/pool
+          mkdir -p public/pool/main/p/perfume-composer
 
           echo "📦 Copying Debian .deb packages into public/pool..."
-          find pool -type f -name "*.deb" -exec cp -v --parents {} public/ \;
+          cp -v pool/main/p/perfume-composer/*.deb public/pool/main/p/perfume-composer/
 
           echo "🗂️ Building APT indexes..."
           cd public
