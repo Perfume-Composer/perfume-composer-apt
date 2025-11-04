@@ -21,7 +21,7 @@ jobs:
       - name: Checkout (with LFS support)
         uses: actions/checkout@v4
         with:
-          lfs: true  # ✅ fetch Git LFS files automatically      
+          lfs: true
 
       - name: Pull LFS files
         run: git lfs pull
@@ -44,7 +44,6 @@ jobs:
           mkdir -p public/pool
 
           echo "📦 Copying Debian .deb packages into public/pool..."
-          # ✅ copy any .deb no matter its depth, preserving folder structure
           find pool -type f -name "*.deb" -exec cp -v --parents {} public/ \;
 
           echo "🖼️ Copying screenshots..."
@@ -54,11 +53,10 @@ jobs:
           echo "🗂️ Building APT indexes..."
           cd public
 
-          # Build the Packages index relative to 'public'
           apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
           gzip -kf dists/stable/main/binary-amd64/Packages
 
-          # Create Release and Release.gpg metadata inside 'dists'
+          # First Release file (local one, kept)
           cat > dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -68,10 +66,10 @@ jobs:
           Components: main
           Description: Perfume Composer APT repository
           EOF
-
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
+          # Second Release (in public/, kept for compatibility)
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -83,38 +81,31 @@ jobs:
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
-      # ✅ Copy DEP-11 metadata first
       - name: Include AppStream DEP-11 metadata
         run: |
           echo "🧩 Including AppStream DEP-11 metadata..."
           mkdir -p public/dists/stable/main/dep11
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
 
-      # ✅ ADD THIS SECTION BELOW (new step)
       - name: Add DEP-11 metadata checksums
         run: |
           echo "🧩 Adding DEP-11 metadata to Release file..."
-          mkdir -p public/dists/stable/main/dep11
           cd public/dists/stable
           echo "" >> Release
           echo "MD5Sum:" >> Release
-          find main/dep11 -type f -exec md5sum {} \; >> Release || true
+          find main/dep11 -type f -exec md5sum {} \; >> Release
           echo "" >> Release
           echo "SHA256:" >> Release
-          find main/dep11 -type f -exec sha256sum {} \; >> Release || true
+          find main/dep11 -type f -exec sha256sum {} \; >> Release
           cd -
 
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
           echo "🧩 Patching AppStream metadata..."
           META_XML="appstream/perfume-composer.xml"
-
-          # Ensure the uncompressed XML exists before we patch
           if [ -f "appstream/perfume-composer.xml.gz" ]; then
             gzip -d appstream/perfume-composer.xml.gz
           fi
-
-          # Add <developer> and <content_rating> if missing
           if grep -q "<component" "$META_XML"; then
             if ! grep -q "<developer" "$META_XML"; then
               sed -i '/<name>Perfume Composer<\/name>/a \
@@ -124,11 +115,7 @@ jobs:
               <content_rating type="oars-1.1" />' "$META_XML"
             fi
           fi
-
-          # Recompress to .gz
           gzip -f "$META_XML"
-
-          # Validate AppStream
           sudo apt-get install -y appstream || true
           appstreamcli validate appstream/perfume-composer.xml.gz || true
 
@@ -158,25 +145,20 @@ jobs:
 
       - name: Include public key
         run: cp PERFUME-COMPOSER.gpg.key public/
-        
+
       - name: Auto-tag new version and update changelog
         run: |
           echo "🧾 Checking for new version..."
           VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
           echo "Detected version: $VERSION"
-
           if [ -z "$VERSION" ]; then
             echo "No version detected. Skipping tagging."
             exit 0
           fi
-
-          echo "Checking if tag v$VERSION already exists on remote..."
           if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
             echo "✅ Tag v$VERSION already exists on remote. Skipping tag creation and push."
             exit 0
           fi
-
-          echo "Updating CHANGELOG.md..."
           DATE=$(date -u +"%Y-%m-%d")
           echo -e "## v$VERSION — $DATE\n- $(git log -1 --pretty=%s)\n" | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
           git config user.name "github-actions[bot]"
@@ -191,7 +173,6 @@ jobs:
           echo "🌐 Generating index.html..."
           mkdir -p public
           VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
-
           cat > public/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
@@ -211,28 +192,25 @@ jobs:
           </head>
           <body>
             <h1>🌿 Perfume Composer APT Repository</h1>
-          
             <div class="card">
               <h2>Latest Release</h2>
               <p><strong>Version:</strong> VERSION_PLACEHOLDER</p>
               <p><a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download PerfumeComposer_VERSION_PLACEHOLDER.deb</a></p>
               <img src="screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
             </div>
-          
             <div class="card">
               <h2>Install via APT</h2>
               <pre><code>curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | \
           sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
-          
+
           echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
           https://perfume-composer.github.io/perfume-composer-apt stable main" | \
           sudo tee /etc/apt/sources.list.d/perfume-composer.list
-          
+
           sudo apt update
           sudo apt install perfumecomposer
           </code></pre>
             </div>
-          
             <div class="card">
               <h2>About</h2>
               <p>Perfume Composer is a professional fragrance composition and IFRA compliance tool for perfumers.</p>
@@ -241,9 +219,7 @@ jobs:
           </body>
           </html>
           HTML
-
-          sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html      
-
+          sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
