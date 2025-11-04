@@ -72,8 +72,6 @@ jobs:
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
-
-
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -84,6 +82,34 @@ jobs:
           Description: Perfume Composer APT repository
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
+
+      - name: Patch AppStream metadata (add developer and content rating)
+        run: |
+          echo "🧩 Patching AppStream metadata..."
+          META_XML="appstream/perfume-composer.xml"
+
+          # Ensure the uncompressed XML exists before we patch
+          if [ -f "appstream/perfume-composer.xml.gz" ]; then
+            gzip -d appstream/perfume-composer.xml.gz
+          fi
+
+          # Add <developer> and <content_rating> if missing
+          if grep -q "<component" "$META_XML"; then
+            if ! grep -q "<developer" "$META_XML"; then
+              sed -i '/<name>Perfume Composer<\/name>/a \
+              <developer id="io.github.perfume-composer">\
+              <name>Perfume Composer Team</name>\
+              </developer>\
+              <content_rating type="oars-1.1" />' "$META_XML"
+            fi
+          fi
+
+          # Recompress to .gz
+          gzip -f "$META_XML"
+
+          # Validate AppStream
+          sudo apt-get install -y appstream || true
+          appstreamcli validate appstream/perfume-composer.xml.gz || true
 
       - name: Debug repository contents
         run: |
