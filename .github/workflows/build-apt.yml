@@ -24,7 +24,7 @@ jobs:
           lfs: true  # ✅ fetch Git LFS files automatically      
 
       - name: Install apt-utils
-        run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync tree
 
       - name: Import GPG private key
         env:
@@ -66,7 +66,6 @@ jobs:
           EOF
           apt-ftparchive release public/dists/stable >> public/dists/stable/Release
 
-
       - name: Debug repository contents
         run: |
           echo "🪞 Showing repository structure:"
@@ -105,8 +104,9 @@ jobs:
             exit 0
           fi
 
-          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
-            echo "Tag v$VERSION already exists on remote. Skipping tagging step."
+          echo "Checking if tag v$VERSION already exists on remote..."
+          if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
+            echo "✅ Tag v$VERSION already exists on remote. Skipping tag creation and push."
             exit 0
           fi
 
