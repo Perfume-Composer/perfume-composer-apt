@@ -87,17 +87,13 @@ jobs:
           mkdir -p public/dists/stable/main/dep11
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
 
-      - name: Add DEP-11 metadata checksums
+      # ✅ Regenerate the Release file after DEP-11 inclusion
+      - name: Regenerate Release with DEP-11 entries
         run: |
-          echo "🧩 Adding DEP-11 metadata to Release file..."
-          cd public/dists/stable
-          echo "" >> Release
-          echo "MD5Sum:" >> Release
-          find main/dep11 -type f -exec md5sum {} \; >> Release
-          echo "" >> Release
-          echo "SHA256:" >> Release
-          find main/dep11 -type f -exec sha256sum {} \; >> Release
-          cd -
+          echo "🔁 Regenerating Release file with DEP-11..."
+          cd public
+          apt-ftparchive release dists/stable > dists/stable/Release
+          cd 
 
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
