@@ -120,6 +120,61 @@ jobs:
           git tag -a "v$VERSION" -m "Release v$VERSION"
           git push origin "v$VERSION"
 
+      - name: Generate index.html for GitHub Pages
+        run: |
+          echo "🌐 Generating index.html..."
+          VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          cat > public/index.html <<EOF
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Perfume Composer APT Repository</title>
+            <style>
+              body { font-family: Arial, sans-serif; background: #0b0b0b; color: #eaeaea; line-height: 1.6; padding: 2rem; }
+              h1 { color: #a7e3ff; text-shadow: 0 0 5px #1e90ff; }
+              code, pre { background: #222; color: #9effa8; padding: 0.3rem 0.5rem; border-radius: 5px; }
+              a { color: #9ecbff; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .card { background: #141414; padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 0 10px #000; }
+              img { max-width: 600px; width: 100%; border-radius: 10px; margin-top: 1rem; }
+            </style>
+          </head>
+          <body>
+            <h1>🌿 Perfume Composer APT Repository</h1>
+
+            <div class="card">
+              <h2>Latest Release</h2>
+              <p><strong>Version:</strong> ${VERSION}</p>
+              <p><a href="pool/main/p/perfume-composer/PerfumeComposer_\${VERSION}.deb">⬇️ Download PerfumeComposer_\${VERSION}.deb</a></p>
+              <img src="screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
+            </div>
+
+            <div class="card">
+              <h2>Install via APT</h2>
+              <p>Run these commands in your terminal:</p>
+              <pre><code>curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | \
+sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
+https://perfume-composer.github.io/perfume-composer-apt stable main" | \
+sudo tee /etc/apt/sources.list.d/perfume-composer.list
+
+sudo apt update
+sudo apt install perfume-composer
+</code></pre>
+            </div>
+
+            <div class="card">
+              <h2>About</h2>
+              <p>Perfume Composer is a professional fragrance composition and IFRA compliance tool for perfumers.</p>
+              <p>Maintained by <strong>Perfume Composer Team</strong> — crafted with care by Chris and Paul 🧪</p>
+            </div>
+          </body>
+          </html>
+          EOF
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
