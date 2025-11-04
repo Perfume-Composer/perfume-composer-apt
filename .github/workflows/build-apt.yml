@@ -154,7 +154,7 @@ jobs:
         run: |
           echo "🌐 Generating index.html..."
           mkdir -p public
-          VERSION=$(basename public/pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          VERSION=$(basename $(find pool public -type f -name "PerfumeComposer_*.deb" | head -n 1) | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
           cat > public/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
