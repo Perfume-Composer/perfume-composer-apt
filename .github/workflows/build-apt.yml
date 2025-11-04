@@ -131,7 +131,7 @@ jobs:
       - name: Auto-tag new version and update changelog
         run: |
           echo "🧾 Checking for new version..."
-          VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          VERSION=$(basename public/pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
           echo "Detected version: $VERSION"
           if [ -z "$VERSION" ]; then
             echo "No version detected. Skipping tagging."
@@ -154,7 +154,7 @@ jobs:
         run: |
           echo "🌐 Generating index.html..."
           mkdir -p public
-          VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          VERSION=$(basename public/pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
           cat > public/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
