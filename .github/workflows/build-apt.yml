@@ -46,14 +46,14 @@ jobs:
           echo "📦 Copying Debian .deb packages into public/pool..."
           find pool -type f -name "*.deb" -exec cp -v --parents {} public/ \;
 
-          echo "🖼️ Copying screenshots..."
-          mkdir -p public/screenshots
-          cp -r screenshots/* public/screenshots/ 2>/dev/null || true
-
           echo "🗂️ Building APT indexes..."
           cd public
+          
+          # ✅ FIX: build relative to ./pool inside public
+          apt-ftparchive packages ./pool > dists/stable/main/binary-amd64/Packages
+          gzip -kf dists/stable/main/binary-amd64/Packages
 
-          # ✅ Create proper Release file in the final public directory
+          # ✅ Then create the Release file in the same structure
           cat > dists/stable/Release <<'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -62,13 +62,10 @@ jobs:
           Architectures: amd64
           Components: main
           Description: Perfume Composer APT repository
-          EOF          
-          apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
-          gzip -kf dists/stable/main/binary-amd64/Packages
+          EOF
           
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
-
 
       - name: Include AppStream DEP-11 metadata
         run: |
