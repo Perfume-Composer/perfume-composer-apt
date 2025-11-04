@@ -52,8 +52,11 @@ jobs:
           cp -r screenshots/* public/screenshots/ 2>/dev/null || true
 
           echo "🗂️ Building APT indexes..."
-          apt-ftparchive packages public/pool > public/dists/stable/main/binary-amd64/Packages
-          gzip -kf public/dists/stable/main/binary-amd64/Packages
+          cd public
+          apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
+          gzip -kf dists/stable/main/binary-amd64/Packages
+          cd -
+
 
           cat > public/dists/stable/Release << 'EOF'
           Origin: Perfume Composer
@@ -163,7 +166,7 @@ jobs:
           sudo tee /etc/apt/sources.list.d/perfume-composer.list
           
           sudo apt update
-          sudo apt install perfume-composer
+          sudo apt install perfumecomposer
           </code></pre>
             </div>
           
@@ -177,6 +180,7 @@ jobs:
           HTML
 
           sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
