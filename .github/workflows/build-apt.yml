@@ -123,6 +123,7 @@ jobs:
       - name: Generate index.html for GitHub Pages
         run: |
           echo "🌐 Generating index.html..."
+          mkdir -p public
           VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
 
           cat > public/index.html <<'HTML'
@@ -144,28 +145,28 @@ jobs:
           </head>
           <body>
             <h1>🌿 Perfume Composer APT Repository</h1>
-
+          
             <div class="card">
               <h2>Latest Release</h2>
               <p><strong>Version:</strong> VERSION_PLACEHOLDER</p>
               <p><a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download PerfumeComposer_VERSION_PLACEHOLDER.deb</a></p>
               <img src="screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
             </div>
-
+          
             <div class="card">
               <h2>Install via APT</h2>
               <pre><code>curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | \
-sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
-https://perfume-composer.github.io/perfume-composer-apt stable main" | \
-sudo tee /etc/apt/sources.list.d/perfume-composer.list
-
-sudo apt update
-sudo apt install perfume-composer
-</code></pre>
+          sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
+          
+          echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
+          https://perfume-composer.github.io/perfume-composer-apt stable main" | \
+          sudo tee /etc/apt/sources.list.d/perfume-composer.list
+          
+          sudo apt update
+          sudo apt install perfume-composer
+          </code></pre>
             </div>
-
+          
             <div class="card">
               <h2>About</h2>
               <p>Perfume Composer is a professional fragrance composition and IFRA compliance tool for perfumers.</p>
