@@ -53,9 +53,25 @@ jobs:
 
           echo "🗂️ Building APT indexes..."
           cd public
+
+          # Build the Packages index relative to 'public'
           apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
           gzip -kf dists/stable/main/binary-amd64/Packages
+
+          # Create Release and Release.gpg metadata inside 'dists'
+          cat > dists/stable/Release << 'EOF'
+          Origin: Perfume Composer
+          Label: Perfume Composer
+          Suite: stable
+          Codename: stable
+          Architectures: amd64
+          Components: main
+          Description: Perfume Composer APT repository
+          EOF
+
+          apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
+
 
 
           cat > public/dists/stable/Release << 'EOF'
