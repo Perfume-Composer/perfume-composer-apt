@@ -67,21 +67,25 @@ jobs:
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
-      - name: Include AppStream DEP-11 metadata
+      - name: Generate and include AppStream DEP-11 metadata
         run: |
-          echo "🧩 Including AppStream DEP-11 metadata..."
+          echo "🧩 Generating DEP-11 metadata for Software Manager..."
           mkdir -p public/dists/stable/main/dep11
-          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.xml.gz
-          echo "✅ AppStream metadata copied to DEP-11 directory."
+          
+          # Copy your main XML.gz (used for AppStream)
+          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/perfume-composer.xml.gz
 
-      - name: Regenerate Release with DEP-11 entries
-        run: |
-          echo "🔁 Regenerating Release file with DEP-11..."
+          # Generate proper DEP-11 YAML file
+          sudo apt-get install -y appstream || true
+          appstreamcli make-dep11 appstream > public/dists/stable/main/dep11/Components-amd64.yml
+          gzip -f public/dists/stable/main/dep11/Components-amd64.yml
+
+          echo "✅ DEP-11 generated at public/dists/stable/main/dep11/Components-amd64.yml.gz"
+
+          # Rebuild Release metadata (important for APT caching)
+          echo "🔁 Rebuilding Release with DEP-11 entries..."
           cd public
-          # append, don't overwrite, to keep Suite/Codename header
-          apt-ftparchive release dists/stable >> dists/stable/Release
-          # add a timestamp comment to force GitHub cache refresh
-          echo "# build $(date -Ru)" >> dists/stable/Release
+          apt-ftparchive release dists/stable > dists/stable/Release
           cd - 
 
       - name: Patch AppStream metadata (add developer and content rating)
