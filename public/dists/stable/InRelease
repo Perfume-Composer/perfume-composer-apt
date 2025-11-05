@@ -10,25 +10,25 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 14:45:29 +0000
+Date: Wed, 05 Nov 2025 15:14:11 +0000
 
 SHA256:
- b596c2dc844bf75037c95fa08915117627b256d5049f81683dffb5d728616af4 936 dists/stable/main/dep11/perfume-composer.xml.gz
+ 5f78a6d09c1e8a7d5421bbb6de62dd4ffaba64bae4c64f397ffb3dd1b32e5b5c 937 dists/stable/main/dep11/perfume-composer.xml.gz
  d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe 837 dists/stable/main/dep11/Components-amd64.yml.gz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLYyMACgkQq+NnZzRP
-+4OPEg//Rxwb2Ux1PHq8vBicYoDwudkQX4fXea87cS0nrj3Pn5ss2EWceDk+R41G
-aRazOCXNSeyyaxcjv/GE7uIaYLVO2xOtFRgcLnixc1Kb35FQACWm/qgfuhvBs170
-RE1jYPE0fw1buqi1TtVPHgKLcH3NIdgsS0LAK/taIGyaeK+Z7HZoJGlOv92Aw0KK
-5aMRqY9eKouCVKJWWmIpE+lJnff2LcRSQnFtWvqHTVktE4npn8/jDzhNZ1cPMQqb
-Dl+PPBAcIJuLoS0+uG7b3dQPeht0nnfwJIE17KcUlpUBwG3Nv0M6r6l2P5D1+8dg
-aylmaVWQoWtMjo8gtDIaDNUS3UyuX1d9Gn3fmdQJ0asXg9ArUslhgmon0FgXFGy+
-S41SCy1qPSX7k7B1rCt9pf79Nl+160FCzwivU1Xx+tWXOqMDyNn3m7VL6guFJlOt
-NEMxs+c7nZjalQuzgR3NwlExAs4mcBiCt+IcCD+zRCAInOMRmAacHA+8pfgTHh8R
-uBa0UnXSdf/31nbpgzTX/a/sxNJ7kmAPHN/7iRcAXM/lSwlcNlP17PLeic45eX85
-3PX+uVvrZtPudg/eodXV1C83LoCF5yp7FVNYwZHWAlNChrENLMHqa2/NIsr/VqyP
-DIca/wcP2N24gsLr0j65l3XNuViDIfwyP8lZQo4PLEkQ2f8pq6E=
-=6vE1
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLacwACgkQq+NnZzRP
++4Pbsg//dOXgkFC8lMrCry570SPITj31/kbN+8Yfa+OPbnESa13clOH8XF1bSHG+
+atgNQnRxgjcok5fMVuZ7AZopibuxd1GEAryp3A248gq9Xxa187EpDo7fjHzYHQ8U
+TW2rMKXCuU4aq2W/rAEOGyn9otC8gHUUqLjLSa2x9nfZqwse1eqJvv1r+OQrVpX2
+FWcLUdNJWDGHljnkIIo8PjQdWBGTe73yjuqc6lmDZ/W6pK+E98HrGQtb6ANHbf6j
+xJvt6P1YFmVve11YMpopI1gRdkMuOdL9e3l7le3eCHzj3q6pgYLyfMzWSMSpRaSf
+xXrhFflzKKk82UX3Hw+at13E+oekFybpLfQR6+uN+ExmnAfhkns6J1kYNsgtAqhz
+MKiSP3ULP6DhdFKfnQOqD+++oNA8nnITm75xf7vAEQuuzpYUOicB2CBAzGqYDPOs
+P4799VIpASNu/yOKXpo3sjPEu3wd8J1jpvVz6+4OgfpmQvb0+2vmmThZ1jQkwBq4
+/cXbjp11D3opYYo+PYeYNsYnucO0kC/4JTC/gZa120uZRuOjI+/W2HEVnuRLGB3J
+pAM/ejDTVah1wpxTtymRlalqWloL0oQkGjfFtibn8jeYfQFfjgjYVxR6JhZnWab/
+qSIcWb8caNlkM7h53Elyhfrrqr4YfY36h8XUS7wN5JPbq0OOUgY=
+=qrfz
 -----END PGP SIGNATURE-----
