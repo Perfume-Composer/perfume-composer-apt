@@ -1,0 +1,10 @@
+Origin: Perfume Composer
+Label: Perfume Composer Repository
+Suite: stable
+Codename: stable
+Architectures: amd64
+Components: main
+Description: Perfume Composer APT Repository
+Date: Wed, 05 Nov 2025 12:29:51 +0000
+c6daec53f3d8f2c3b9ad477f584bee9549d08f6a066038678a967f725a70ab25  dists/stable/main/dep11/perfume-composer.xml.gzpublic/dists/stable/main/dep11/perfume-composer.xml.gz
+d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe  dists/stable/main/dep11/Components-amd64.yml.gzpublic/dists/stable/main/dep11/Components-amd64.yml.gz
