@@ -10,25 +10,26 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 16:05:31 +0000
+Date: Wed, 05 Nov 2025 16:51:44 +0000
 
 SHA256:
- 1c5ae3aaafd844ed16b3c83ed6e948df33c7926a543ef11388d53b4c207c95bd 937 dists/stable/main/dep11/perfume-composer.xml.gz
- d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe 837 dists/stable/main/dep11/Components-amd64.yml.gz
+ e2342f61a035cca0c60999bc65ab0735e57831079df0ab6ef4a8756af936cf83 936 dists/stable/main/dep11/perfume-composer.xml.gz
+ 5581984945628aaabcece46379b212a22cec4e9ead4770e13360cbb4605d9340 2369 dists/stable/main/dep11/perfume-composer.xml
+ 4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe 67 dists/stable/main/dep11/Components-amd64.yml.gz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLddQACgkQq+NnZzRP
-+4MwShAAg1vrnfopt+xYeWKPOEVYzleZjuEsZvleGZlsdcwKwfFGr3pjwYMyUK3Z
-DqiOQ7cuXW4HwlESmEP2txnvu84AqLit2WP9Chus5kul5bzr7QCbHFnPZoHEaQeI
-5L7HqV/K1/xjEo10ihIlcYTcPZzStL5AVh6IPbLuvoi81Vp1ZS+do1HmqdJdv8VB
-w7JvQ4pxDpSIrQ9anOa+4SI4c53IC2yYx2JyztbzQV/pyKYS5QDVNGVBcRqT8x78
-5l13K/YGvV2g+5CmCfhdJmQGclV91WRtFbzzVaXmNd/NljTMnh4BBnwqTWLa+PwH
-dcAcKMjpWGa0zdWjJ/0Hn+7RX+oG7P78I0aHg7uD9AUdkus3++TKHqZADpwI51/9
-0uG5Saz7DL0eSDX1wVSRp2cnhDK3n9KNnoszFrbOrH69eIR/ZvRjxdYixuDbAcRI
-iMUbi6DNhc8/+GPEfpBhC3QD6j7MSdxxCScJKJtB0kNiDTFyi0XrrVY2b1mUk3wN
-QP3VovagRutLQ6J05uAI2q+Q5N4WLAIlZ+OX2off/u7wvDOQqisvZW82VtxcJeIM
-3abwzPylTmArUCZm6tUMVxAV7G9LbP43TlKfJBZu8gPHC9LAV8khN3Ud9Nka49wW
-meWiqbcx8uECrd4WLYXuF9uIYJdpRWOZf9YFWAiCYobPRLXaLwg=
-=2jKF
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLgKAACgkQq+NnZzRP
++4OcURAAv8bBBVOOuGXSoU0iYpXIrymtUW8nUv9hcPvYF1uAoMIS6dkK3jVH+jNK
+cFiPtLtyB2tgYl8h1/MwXGmcLvh/T+u2EitIzH8aGP9OATJG9AodN97PjszapVbJ
+c7s0PlMgaup7RQFc1cgQgcKfc6v+5yRS7wY0PI8StfpoF02A4Zs/l9fvCEUkfsM1
+0Lo1xAoM+xpMFU64GlKW024xmIARlEWl0jj+gvINWgUHqfRT0iqrGNQp2hMKdunr
+3QDe92r6HezW85xYOdX9Y7gxYDX81zjYFazAtUYDcFr0Zi3PHiCXgGOyTd6LJoxm
+V+Fdd9hBneVBhUwURf8yRGNRJcfRBVlY1BC828Ti/w9K83OkvcbI6pOuJhIOfohD
+mb6nEM/sRCFgaVfbK8muEhloQR7BKe/ewzznIRMhNmt505WRBdazeo6/5tAoK/v4
+4n9tmx7d7dkg0CXNP3DEaTvvDvWophLQnNuR2l8LWH1g8qM9Chm/ttLqIF8QnuZ+
+J+ezzg/IrQenE4dGURDM15pB01k5tfUEltrePwjfZzrCDt5Jl5QNR3bz/zfLhOMW
+vFj+Va860QJmHZWuhkmVTogr7mrnGWDtCg4nHbdLvHBvpEgelcRNs/m9Lki4KKWf
++Yolo+BoVsZHaycz+7CtNdK+poCItfVOSWnwDADISxiYUVkORIw=
+=equV
 -----END PGP SIGNATURE-----
