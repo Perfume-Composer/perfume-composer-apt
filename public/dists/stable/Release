@@ -7,9 +7,9 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 14:18:17 +0000
+Date: Wed, 05 Nov 2025 14:45:29 +0000
 
 SHA256:
- 6494820aaa98f5f9848cc4088610dc78d93e31364f72fbc9f27d1746d221b23c 936 dists/stable/main/dep11/perfume-composer.xml.gz
+ b596c2dc844bf75037c95fa08915117627b256d5049f81683dffb5d728616af4 936 dists/stable/main/dep11/perfume-composer.xml.gz
  d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe 837 dists/stable/main/dep11/Components-amd64.yml.gz
 
