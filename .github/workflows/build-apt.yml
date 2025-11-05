@@ -74,13 +74,15 @@ jobs:
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.xml.gz
           echo "✅ AppStream metadata copied to DEP-11 directory."
 
-      # ✅ Regenerate the Release file after DEP-11 inclusion
       - name: Regenerate Release with DEP-11 entries
         run: |
           echo "🔁 Regenerating Release file with DEP-11..."
           cd public
-          apt-ftparchive release dists/stable > dists/stable/Release
-          cd 
+          # append, don't overwrite, to keep Suite/Codename header
+          apt-ftparchive release dists/stable >> dists/stable/Release
+          # add a timestamp comment to force GitHub cache refresh
+          echo "# build $(date -Ru)" >> dists/stable/Release
+          cd - 
 
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
