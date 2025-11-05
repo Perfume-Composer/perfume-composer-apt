@@ -17,15 +17,15 @@
 
   <!-- AppStream icons for validation and display -->
   <icon type="stock">perfume-composer</icon>
-  <icon type="remote">https://perfume-composer.github.io/perfume-composer-apt/public/screenshots/professional-perfume-composer.png</icon>
+  <icon type="remote">https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png</icon>
 
   <screenshots>
   <screenshot type="default">
-    <image>https://perfume-composer.github.io/perfume-composer-apt/public/screenshots/professional-perfume-composer.png</image>
+    <image>https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png</image>
     <caption>Professional Perfume Composer.</caption>
   </screenshot>
   <screenshot>
-    <image>https://perfume-composer.github.io/perfume-composer-apt/public/screenshots/professional-perfume-composer-screenshot.png</image>
+    <image>https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer-screenshot.png</image>
     <caption>Dark theme for extended comfort and readability.</caption>
   </screenshot>
 </screenshots>
