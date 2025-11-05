@@ -210,7 +210,7 @@ jobs:
         run: |
           echo "🧩 Preparing content for GitHub Pages..."
           mkdir -p public
-
+      
           # Copy APT repo structure only if missing
           if [ -d "pool" ] && [ ! -d "public/pool" ]; then
             cp -r pool public/
@@ -218,7 +218,13 @@ jobs:
           if [ -d "appstream" ] && [ ! -d "public/appstream" ]; then
             cp -r appstream public/
           fi
-
+      
+          # ✅ Ensure screenshots are available for AppStream preview
+          if [ -d "screenshots" ]; then
+            cp -r screenshots public/
+            echo "🖼️  Copied screenshots to public/"
+          fi
+      
           # Make sure index.html is at the top level
           if [ -f "public/index.html" ]; then
             echo "✅ index.html found in public/"
@@ -228,7 +234,7 @@ jobs:
           else
             echo "⚠️  index.html not found anywhere!"
           fi
-
+      
           echo "🧾 Verifying final public/ contents..."
           tree -L 3 public || ls -R public
 
