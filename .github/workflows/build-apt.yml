@@ -70,8 +70,9 @@ jobs:
       - name: Include AppStream DEP-11 metadata
         run: |
           echo "🧩 Including AppStream DEP-11 metadata..."
-          mkdir -p public/dists/stable/main/dep11
-          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
+          mkdir -p public/dists/stable/main/dep11         
+          sudo apt-get install -y appstream || true
+          appstreamcli make-dep11 appstream/ public/dists/stable/main/dep11/
 
       # ✅ Regenerate the Release file after DEP-11 inclusion
       - name: Regenerate Release with DEP-11 entries
