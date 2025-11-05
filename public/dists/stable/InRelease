@@ -10,26 +10,25 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 17:21:38 +0000
+Date: Wed, 05 Nov 2025 17:29:01 +0000
 
 SHA256:
- 0a3841c342f2b601aeb49f53f2ed8c1a963c6d9711f0145cb95ec2502582e986 937 dists/stable/main/dep11/perfume-composer.xml.gz
+ a300880aef0a40e8d6b29d651c9496a1c90cb552b3a6bb9b41b745f8f1fb379f 937 dists/stable/main/dep11/perfume-composer.xml.gz
  5581984945628aaabcece46379b212a22cec4e9ead4770e13360cbb4605d9340 2369 dists/stable/main/dep11/perfume-composer.xml
  4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe 67 dists/stable/main/dep11/Components-amd64.yml.gz
-
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLh60ACgkQq+NnZzRP
-+4PoVg/9GF38EP8wrAUNpPS3NMim2yyfH76rhF2qBI2pxosK3VGG95M5LJtcDA+C
-6RDHPN+K/jcQFRE1u1HUQG0tvqpFQ6mxjYxYtKtUjeg/J1DtYeBxqquwvWJxqwvQ
-Fykx6KhB9usjezX31YqCwYf2tufFJJS7Rk1s1Fm41t6/tcJZHsZnHRjDscOm8H10
-fBBI9WEOx1246KdhVRBdE5rm7t2Cw8vEPHrirepj8hqiABt2yyZXlKTiE3Ua2Uhs
-7oIEO5/gFkIvCNYBdUkb6ak1PAWWi38eGndQG/CW0KJFc+owcHpXY/oqWk11xSkG
-nTsIULK3Vto2jeYXOBHnZHWMtkf+ROFG/KYUGtOOWkic2ooQ8M6fNlpeqmtxXkLg
-Ko8jCc3RGcsIAicHdPjUFc3ovPACY/YrVEzrdmaFXLaygcWM8BTBqa7qTw4U5+oi
-+2wIFKX4PMbpmZ8qH2FUjtP5Sfv+LN2h/dgGrmicRerE9gLh59qVXU5ZyqMj1kRY
-z93AMlXRWzRLLPmInLs7X0ZY71kG1WvwleSft1SHsVbqBgzJZ/lX//iqiEiiCt/s
-vkXtyS0onycvCq9XNL46WKXIRbUbkiuZat5zXqsKZAUa/UBSuYJNN6SONF6IgiyB
-ENWM42OCuX3lW8DKYCbKTczDBc9A307qR+uqZz0laBtIcmTQCsk=
-=+KbG
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLiV0ACgkQq+NnZzRP
++4PLww/+KHAB2s55ZRuNslbc2NvmLILZfwGLBmYRVE/yukXiE3IGMjpSx2bAv3QW
+WeoXfWIKrqn+CBsn8Zi18aKyBWLQW8nzM9b0OnWrjRQvYWJlujH7sOv80Zzf7IUr
+dfrf8mkYiQCBs/LIkm22I+RVlPvoFuXsCV6Hq6HzaCtjH5hTQ323ZoOCgOCp3jNp
+Hlb1PL+yfRO1tYiT2yB+mfsvm5AxDEX5m2t8eERCB1C7MENpQ40zzpS355jqENVz
+egOEo/Perdp2idqLfmpkAI9KXHbNsS6OWgjDx0Uh0FUY/YJdtxpS0ExQ6h3bPvgY
+Y2/MWMkEuKxvLavsOjXXeRuhk70wo4iWlVMQkRJ5EbaFcBYypdCdz8M42kQ8TNk+
+iBHuzIwS70Wsiz7yCS9pZDaRn6hLozSvhzHM4M3HNXWnHoksrX8m0hG3dlu1YIKs
+TAXmcCNBC5nE8ffFFwWaHLX7qwZVOOKezYQ85yPNpJ5JUKX76mCdu4nZuOsw0NFI
+rO3HAH6oXSpslv0N6f1vxezNQ5yl7wfwFKC7oNup4Hy8k6oGn7x8LWtPY6hlaBOz
+cfSUdZDJlbZHA1iTn6AUWcaUkX86AWxIej2kNKrYgjwm+j6J/OcGroB9mOReaYRb
+O2n1tRWzjg4vmnMi4w5w5l+eb2QaySYXkHOB1can46FyOkyUT0I=
+=/QNg
 -----END PGP SIGNATURE-----
