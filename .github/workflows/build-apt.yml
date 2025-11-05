@@ -71,22 +71,23 @@ jobs:
         run: |
           echo "🧩 Generating DEP-11 metadata for Software Manager..."
           mkdir -p public/dists/stable/main/dep11
-          
+      
           # Copy your main XML.gz (used for AppStream)
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/perfume-composer.xml.gz
-
-          # Generate proper DEP-11 YAML file
-          sudo apt-get install -y appstream || true
-          appstreamcli make-dep11 appstream > public/dists/stable/main/dep11/Components-amd64.yml
+      
+          # Convert XML → YAML (DEP-11 format)
+          gzip -d appstream/perfume-composer.xml.gz
+          appstreamcli convert appstream/perfume-composer.xml public/dists/stable/main/dep11/Components-amd64.yml
           gzip -f public/dists/stable/main/dep11/Components-amd64.yml
-
+          gzip -f appstream/perfume-composer.xml  # re-compress back for repo consistency
+      
           echo "✅ DEP-11 generated at public/dists/stable/main/dep11/Components-amd64.yml.gz"
-
+      
           # Rebuild Release metadata (important for APT caching)
           echo "🔁 Rebuilding Release with DEP-11 entries..."
           cd public
           apt-ftparchive release dists/stable > dists/stable/Release
-          cd - 
+          cd -
 
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
