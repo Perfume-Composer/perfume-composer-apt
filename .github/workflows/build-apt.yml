@@ -71,7 +71,7 @@ jobs:
         run: |
           echo "🧩 Including AppStream DEP-11 metadata..."
           mkdir -p public/dists/stable/main/dep11
-          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.yml.gz
+          cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/Components-amd64.xml.gz
           echo "✅ AppStream metadata copied to DEP-11 directory."
 
       # ✅ Regenerate the Release file after DEP-11 inclusion
