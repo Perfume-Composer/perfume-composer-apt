@@ -10,25 +10,25 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 15:14:11 +0000
+Date: Wed, 05 Nov 2025 15:16:47 +0000
 
 SHA256:
- 5f78a6d09c1e8a7d5421bbb6de62dd4ffaba64bae4c64f397ffb3dd1b32e5b5c 937 dists/stable/main/dep11/perfume-composer.xml.gz
+ f84b7f8f3ac310add8efa57ea901de5bf168f64fa217bb6aa4b9a3f69d1d9ee9 937 dists/stable/main/dep11/perfume-composer.xml.gz
  d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe 837 dists/stable/main/dep11/Components-amd64.yml.gz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLacwACgkQq+NnZzRP
-+4Pbsg//dOXgkFC8lMrCry570SPITj31/kbN+8Yfa+OPbnESa13clOH8XF1bSHG+
-atgNQnRxgjcok5fMVuZ7AZopibuxd1GEAryp3A248gq9Xxa187EpDo7fjHzYHQ8U
-TW2rMKXCuU4aq2W/rAEOGyn9otC8gHUUqLjLSa2x9nfZqwse1eqJvv1r+OQrVpX2
-FWcLUdNJWDGHljnkIIo8PjQdWBGTe73yjuqc6lmDZ/W6pK+E98HrGQtb6ANHbf6j
-xJvt6P1YFmVve11YMpopI1gRdkMuOdL9e3l7le3eCHzj3q6pgYLyfMzWSMSpRaSf
-xXrhFflzKKk82UX3Hw+at13E+oekFybpLfQR6+uN+ExmnAfhkns6J1kYNsgtAqhz
-MKiSP3ULP6DhdFKfnQOqD+++oNA8nnITm75xf7vAEQuuzpYUOicB2CBAzGqYDPOs
-P4799VIpASNu/yOKXpo3sjPEu3wd8J1jpvVz6+4OgfpmQvb0+2vmmThZ1jQkwBq4
-/cXbjp11D3opYYo+PYeYNsYnucO0kC/4JTC/gZa120uZRuOjI+/W2HEVnuRLGB3J
-pAM/ejDTVah1wpxTtymRlalqWloL0oQkGjfFtibn8jeYfQFfjgjYVxR6JhZnWab/
-qSIcWb8caNlkM7h53Elyhfrrqr4YfY36h8XUS7wN5JPbq0OOUgY=
-=qrfz
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLal8ACgkQq+NnZzRP
++4Nh2xAAnksybribShan6nZpRYCIK6GVLZEGUVF7Mw/cAOW16CF/FFLCZoTwRbCe
+u7W92Ru52w8HDwjAeh2fBdZN0tMaehsVzafwZBVc8trpAJjcwrw9tLiURVXrBdvD
+3lG4EF/xbOIIsKDGgeG89LiaUkYwWXfQlIkqxUGgUOllBdMq5gguLb72Uchgjc5P
+kNF2HnUMzYFEcvAxLHyPsYNTNNuWyj/WAFxNOfieEkS+VCf0Mc7nOJ6mmGKYuD06
+3xt7Mse4iy2msEf8+QA+kn8vBEeGsm1ouvSc5h8NJAdbtgpE/AYWmuYznoWA4/5k
+SukAceDgcJQnXozhigC6r5ZMDqY6c/JqUL4Jdp8npk1bHZ1Ub6hsE7cr4Osw+QUz
+dkvnx4JrM9gQwdyI5R+0T3wZ0cW9aU0kb1grVH/mvFKf3DUxayWpYVyXncSjWnYk
+/JwsSxjHGArwc5PUI2q2f9LizJBe/hfnOnlsjMqrQNVc6QXyMT8CoVDc/MF8joPr
+s7b5tqKohIW2wW5IbkkYnUSzrC3fUNPMntMMt91lhqDaYlFO0BKBAnlYCHu43Z3N
+17/I/9OJMXHrXvAaOu915oiSjZkVQ/q1i2CbeUHvDjxWdm7Mz3l0Op2bAaXID/Ts
+tFyTalL7NOm0itd+sBmVcY17QA8baXFhjv2ONFabeZEIcxJogRI=
+=IkhT
 -----END PGP SIGNATURE-----
