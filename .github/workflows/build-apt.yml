@@ -107,12 +107,17 @@ jobs:
           if ! grep -q "^Suite:" dists/stable/Release; then echo "Suite: stable" >> dists/stable/Release; fi
           if ! grep -q "^Codename:" dists/stable/Release; then echo "Codename: stable" >> dists/stable/Release; fi
 
-          # --- Re-sign Release and InRelease ---
-          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback \
+          # --- Re-sign Release and InRelease safely ---
+          echo "$GPG_PASSPHRASE" | \
+            gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
             -abs -o dists/stable/Release.gpg dists/stable/Release
-          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback \
+
+          echo "$GPG_PASSPHRASE" | \
+            gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
             --clearsign -o dists/stable/InRelease dists/stable/Release
+
           cd -
+
 
       - name: Patch AppStream metadata (add developer and content rating)
         run: |
