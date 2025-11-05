@@ -10,25 +10,25 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 15:16:47 +0000
+Date: Wed, 05 Nov 2025 15:18:07 +0000
 
 SHA256:
- f84b7f8f3ac310add8efa57ea901de5bf168f64fa217bb6aa4b9a3f69d1d9ee9 937 dists/stable/main/dep11/perfume-composer.xml.gz
+ b2ca59c5066f26ea8e85be83828851b716435da92bcb2fcd1a2e91aacf99150e 937 dists/stable/main/dep11/perfume-composer.xml.gz
  d7a4748b155202e4723245f6ac8870f088321b3208945230a9dbf7549ee23cbe 837 dists/stable/main/dep11/Components-amd64.yml.gz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLal8ACgkQq+NnZzRP
-+4Nh2xAAnksybribShan6nZpRYCIK6GVLZEGUVF7Mw/cAOW16CF/FFLCZoTwRbCe
-u7W92Ru52w8HDwjAeh2fBdZN0tMaehsVzafwZBVc8trpAJjcwrw9tLiURVXrBdvD
-3lG4EF/xbOIIsKDGgeG89LiaUkYwWXfQlIkqxUGgUOllBdMq5gguLb72Uchgjc5P
-kNF2HnUMzYFEcvAxLHyPsYNTNNuWyj/WAFxNOfieEkS+VCf0Mc7nOJ6mmGKYuD06
-3xt7Mse4iy2msEf8+QA+kn8vBEeGsm1ouvSc5h8NJAdbtgpE/AYWmuYznoWA4/5k
-SukAceDgcJQnXozhigC6r5ZMDqY6c/JqUL4Jdp8npk1bHZ1Ub6hsE7cr4Osw+QUz
-dkvnx4JrM9gQwdyI5R+0T3wZ0cW9aU0kb1grVH/mvFKf3DUxayWpYVyXncSjWnYk
-/JwsSxjHGArwc5PUI2q2f9LizJBe/hfnOnlsjMqrQNVc6QXyMT8CoVDc/MF8joPr
-s7b5tqKohIW2wW5IbkkYnUSzrC3fUNPMntMMt91lhqDaYlFO0BKBAnlYCHu43Z3N
-17/I/9OJMXHrXvAaOu915oiSjZkVQ/q1i2CbeUHvDjxWdm7Mz3l0Op2bAaXID/Ts
-tFyTalL7NOm0itd+sBmVcY17QA8baXFhjv2ONFabeZEIcxJogRI=
-=IkhT
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLaq8ACgkQq+NnZzRP
++4Ny9RAAnVwvCjqOhnBsa5YpSIxsXpZliFx4wLhYWUHgiLsNjAdsjIOVRApDx0sk
+arVr/vShgGc63N3myVb9I0Crry/oOi/YlDpMv2QyLZCNQpt+SQryNp8Edq5Eh4+J
+pFCOV+ckaH17GbrwCqs1FK3CEt0gri9++3aNHtUHMWfphT5dJvb8yGuM41AQEFst
+E+YYohKnH8SnGUvQZdgmbtbOi1BsR7uKFQkFYp2+UoZZSmMJp4xKLC9GCvGZlBya
+mSATTotjrlt5duy7ULBmA3be49QpuIbs9cet3BZR3HDVa0RKf/4gGcJjkHLid8Ij
+T34/ldf8DHrvhfv/79w6eAPOQnJKv5BZCobDhU3eQrAGLZ49drZurQVji8rieNDu
+I4f3nAegUzDvFT/56EdBtxGdKUJpspuCmk3WBpjdRONDm+AVt7H8RavgScSfc5+c
+z4zEHZTzUzGtUUTip2/aBbKMyX/rWIUlDCUw/uRVvqsa1NomqPziSvHAVo+PAFVW
+2/6Y5iXIXhqrIAO1GMUctsBuyQOIewMIWjODIWv2XSGgIARR41knbJNGIodlVqqN
+d8xmBdFGOoYQdzKscFYI4hMAU38vn4CeTY9Ia5/DB2M3TiacDCAVk3InhOyyfeWo
+uP284hMP1jkEzIP2dde2njcso1II+euua3D4myZoyHcM8vuYul4=
+=3FOi
 -----END PGP SIGNATURE-----
