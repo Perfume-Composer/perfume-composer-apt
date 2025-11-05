@@ -204,6 +204,15 @@ jobs:
           HTML
           sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
 
+      - name: Prepare GitHub Pages content
+        run: |
+          mkdir -p public
+          cp -r pool public/ || true
+          cp -r appstream public/ || true
+          cp -r Packages* public/ || true
+          cp -r Release* public/ || true
+          cp -r index.html public/ || true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
