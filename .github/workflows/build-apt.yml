@@ -49,11 +49,10 @@ jobs:
           echo "🗂️ Building APT indexes..."
           cd public
           
-          # ✅ FIX: build relative to ./pool inside public
           apt-ftparchive packages ./pool > dists/stable/main/binary-amd64/Packages
           gzip -kf dists/stable/main/binary-amd64/Packages
 
-          # ✅ Then create the Release file in the same structure
+          # ✅ Initial Release header
           cat > dists/stable/Release <<'EOF'
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -62,6 +61,7 @@ jobs:
           Architectures: amd64
           Components: main
           Description: Perfume Composer APT repository
+          Date: $(date -Ru)
           EOF
           
           apt-ftparchive release dists/stable >> dists/stable/Release
@@ -72,21 +72,46 @@ jobs:
           echo "🧩 Generating DEP-11 metadata for Software Manager..."
           mkdir -p public/dists/stable/main/dep11
       
-          # Copy your main XML.gz (used for AppStream)
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/perfume-composer.xml.gz
       
-          # Convert XML → YAML (DEP-11 format)
           gzip -d appstream/perfume-composer.xml.gz
           appstreamcli convert appstream/perfume-composer.xml public/dists/stable/main/dep11/Components-amd64.yml
           gzip -f public/dists/stable/main/dep11/Components-amd64.yml
-          gzip -f appstream/perfume-composer.xml  # re-compress back for repo consistency
+          gzip -f appstream/perfume-composer.xml
       
           echo "✅ DEP-11 generated at public/dists/stable/main/dep11/Components-amd64.yml.gz"
-      
-          # Rebuild Release metadata (important for APT caching)
-          echo "🔁 Rebuilding Release with DEP-11 entries..."
+
+      - name: Rebuild Release metadata (preserve Suite/Codename)
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "🔁 Rebuilding Release metadata (safe mode)..."
           cd public
-          apt-ftparchive release dists/stable > dists/stable/Release
+
+          # --- Write explicit header again ---
+          cat > dists/stable/Release <<EOF
+          Origin: Perfume Composer
+          Label: Perfume Composer
+          Suite: stable
+          Codename: stable
+          Architectures: amd64
+          Components: main
+          Description: Perfume Composer APT repository
+          Date: $(date -Ru)
+          EOF
+
+          # --- Append checksum sections ---
+          apt-ftparchive release dists/stable >> dists/stable/Release
+
+          # --- Guarantee presence of Suite/Codename ---
+          if ! grep -q "^Suite:" dists/stable/Release; then echo "Suite: stable" >> dists/stable/Release; fi
+          if ! grep -q "^Codename:" dists/stable/Release; then echo "Codename: stable" >> dists/stable/Release; fi
+
+          # --- Re-sign Release and InRelease ---
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback \
+            -abs -o dists/stable/Release.gpg dists/stable/Release
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback \
+            --clearsign -o dists/stable/InRelease dists/stable/Release
           cd -
 
       - name: Patch AppStream metadata (add developer and content rating)
@@ -216,7 +241,6 @@ jobs:
           echo "🧩 Preparing content for GitHub Pages..."
           mkdir -p public
       
-          # Copy APT repo structure only if missing
           if [ -d "pool" ] && [ ! -d "public/pool" ]; then
             cp -r pool public/
           fi
@@ -224,13 +248,11 @@ jobs:
             cp -r appstream public/
           fi
       
-          # ✅ Ensure screenshots are available for AppStream preview
           if [ -d "screenshots" ]; then
             cp -r screenshots public/
             echo "🖼️  Copied screenshots to public/"
           fi
       
-          # Make sure index.html is at the top level
           if [ -f "public/index.html" ]; then
             echo "✅ index.html found in public/"
           elif [ -f "index.html" ]; then
