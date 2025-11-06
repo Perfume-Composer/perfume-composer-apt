@@ -89,11 +89,33 @@ mkdir -p "$DEP11_DIR"
 echo "📤 Copying AppStream XML to $DEP11_DIR..."
 cp "$XML_GZ" "$DEP11_DIR/perfume-composer.xml.gz"
 
-# --- Step 7c: Update APT Release files (include DEP-11) ---
+# --- Step 7c: Update APT Release files (include DEP-11 properly) ---
 echo "🔐 Regenerating Release files (including DEP-11)..."
 cd public
 
-# Rebuild full Release metadata with all files
+# Build a proper temporary config file for apt-ftparchive
+TMP_CFG=$(mktemp)
+cat > "$TMP_CFG" <<EOF
+Dir {
+  ArchiveDir ".";
+};
+
+TreeDefault {
+  Directory "dists/stable";
+  Contents "no";
+  SrcDirectory "pool";
+};
+
+BinDirectory "dists/stable/main/binary-amd64" {
+  Packages "dists/stable/main/binary-amd64/Packages";
+};
+
+BinDirectory "dists/stable/main/dep11" {
+  Packages "dists/stable/main/dep11/Components-amd64.yml.gz";
+};
+EOF
+
+# Regenerate full Release metadata and include dep11 checksums
 apt-ftparchive \
   -o APT::FTPArchive::Release::Origin="Perfume Composer" \
   -o APT::FTPArchive::Release::Label="Perfume Composer" \
@@ -103,27 +125,16 @@ apt-ftparchive \
   -o APT::FTPArchive::Release::Components="main" \
   release dists/stable > dists/stable/Release
 
-# Add dep11 checksum entries explicitly
-apt-ftparchive generate <<EOF
-Dir {
-  ArchiveDir ".";
-};
-TreeDefault {
-  Directory "dists/stable";
-  Contents "no";
-  SrcDirectory "pool";
-};
-BinDirectory "dists/stable/main/binary-amd64" {
-  Packages "dists/stable/main/binary-amd64/Packages";
-};
-BinDirectory "dists/stable/main/dep11" {
-  Packages "dists/stable/main/dep11/Components-amd64.yml.gz";
-};
-EOF
+# Add DEP-11 section via generate config
+apt-ftparchive generate "$TMP_CFG"
 
-# Re-sign after generating
+# Clean up temp config
+rm -f "$TMP_CFG"
+
+# Re-sign Release file
 gpg --clearsign -o dists/stable/InRelease dists/stable/Release
 cd -
+
 
 # --- Step 8: Git commit logic ---
 echo "🪄 Preparing Git commit..."
