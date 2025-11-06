@@ -1,32 +1,38 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Date: Thu, 06 Nov 2025 23:36:47 +0000
+Architectures: amd64
+Codename: stable
+Components: main
+Date: Thu, 06 Nov 2025 23:43:19 +0000
+Label: Perfume Composer
+Origin: Perfume Composer
+Suite: stable
 MD5Sum:
- e81f54152f378c01c4deb4cd28370a0d               38 Release
+ 2b7cccf602ff6e30c2cc16ee23aaaf6b              156 Release
  a4be3a33892571209f1dd4fed0e5c41f               67 main/dep11/Components-amd64.yml.gz
 SHA1:
- eb7c2e55d7ac65bdb52bf97ddc0a503b2d00260a               38 Release
+ 701dc2579262772e2df36529afb74cdb0a8a66e6              156 Release
  569cb473ae3aca68f5fab6f904ffd253a45f60ff               67 main/dep11/Components-amd64.yml.gz
 SHA256:
- 0543ad569427b9edfe0a9f9dc564a8a69dcc412054782edd37d3b3cc6f5f5027               38 Release
+ db2472a62a5cb8ddf6329f0e6dd34c421384b1788a56d19bfe932b93847f8763              156 Release
  4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe               67 main/dep11/Components-amd64.yml.gz
 SHA512:
- 667deb8792e024425530d344648836d6c12f7c4548914bf8a392b51b2ff98bf05dadc90371dcad2c2f27e5afe85e8892c504834cf851f4272965f9b7cecb8baf               38 Release
+ 6aac69bee978e3903eca7ffe33db80e32398476bd30ed3554eaf1302da78a7beafd4d780865a03be463c09592aee7aa7c7ca7d50ee26c44d22e2adc95b426550              156 Release
  e6e594891af053b052b5bab6765623b0919b2a04cc3d3883a3cce6c2006d1e85745a218d325fa8d47958adaf4acb4566deb085777941b5769a849cd5c4f61abf               67 main/dep11/Components-amd64.yml.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkNMRYACgkQq+NnZzRP
-+4NThhAAxA44j27HEPHTDs25OvOI4RIrAKmX7Cu3pkcjSVK8PkMn95MjHj03XFgU
-vXZqmmVIw53n72KSLkBhh0seZjXiNETqxQfJXGaK8oO7i9/7xQvJ2+2sfWjD66N3
-+xI8VNlW7mVRT7tlIRGjvA85Py2YMx/N7W2l+ADcmyzZxPYYt/xP3iUQx7pzbAYH
-c81yR6n6GS6MnW+jMCeBg1GBelpLQY9E8egE5xVT6hJdXWNT9Pvl8kDwIzMHWzvF
-E9KPDWNPfIaFCtKUGoZ6ZV6oC4MHATNE7i+TD4H6EAhipN3MdBDh+yAj1WvaGk5h
-E8t0TCLxDaqMwzvXpOfz3eWET8We8dH7FbkBOnQ1/d3fJs3Q/pBGfZ4GcX1aoRHQ
-JWyUecuci7/F24+JZ7LzzGhGVgw369xWZW88iS6ighi66Zt7jHIMN2D//fA60feC
-x6QloKg/0EJn4tFTH0YjPky6DMfSknYkRFn6CsTcCibfqnoLA+7EvEpxD9DdtS7D
-nY43v+KBdf+Rx+uhp5pId3Z3wq5sXM+Wn3qF8tR+eXiKYzF0bYGGpSbaObWvTU11
-VQoeAeZ2PHMX0Epq2rqBn7eYTY/+ce2QirpWZNKxzIfwlqrRWxHEFqTlxOl1BUEV
-rroGRQUZy7O35yd5qkBzNPmwgLJ5xSsNQhdNpEEYfDGnOR0oECA=
-=QGwb
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkNMqEACgkQq+NnZzRP
++4O+9A/9EzS5AKzC5pjajXniLGpN0sSZ0+og/B0uKy6LZ8c0ZDT1oN/TnNEnpDmC
+tH27moNTBgTdhHwTXeeL0POAY1e+VTghnHdHOoHnorxO9HaJsRDSAbduEnMUrocR
+Zu8i/W6mgR86VrDCWIB6XsQB+rZCZIbMTfEWW1Az36du2IAMQZOEsroHosoZXJF0
+xOKtuGD22LXaEpkT7XMdvJee/6yF+CvvyU3eiDdAip5iLWYgxONNzuOw81MHK0/X
+kVuUOLvZCH7ZBtc4+NtDzLTbYszA4KWNnY8WZrxmpexsJ0BbxUcV2vFpXgVJPcHk
+rjfGTo6kVDKNKdfq9JRot0D4VwI4MClWExNbD0LyyJgeH4/luyFnCOob8+kVtsgq
+5uge4Oe5BZjWY8wgS59JELf5RtSuz82FyO1i8O+2SOg5x6fekyqsmDIs2aEs/5NC
+xrjfNGUjyaTfKdrIBkZotnAAq46E3E8w3EfHD4eRUVn7mMf9PDBQic/yv1cuNwuD
+ZxUVV+8YUL1yXGPMJEbdYAV8WWCftbJnsGasog5t5mSwiwEoQsHhJDrNpCkVfVIG
+ev6FYzaNtmBqNsGOHYWXOKIQM9AFlUW2iNEbBs9Z3LyIBwK1nOrJTjxg4+nh2Jrl
+KiBm9/52dAX6O2kCYpQjLEA/iSUXS6ydL/K18iSX+N3MWkifsY0=
+=hwGo
 -----END PGP SIGNATURE-----
