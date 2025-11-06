@@ -2,7 +2,7 @@
 set -e
 
 # ==============================
-# Perfume Composer AppStream sync (auto git recovery)
+# Perfume Composer AppStream sync
 # ==============================
 
 if [ -z "$1" ]; then
@@ -54,6 +54,7 @@ fi
 # --- Step 6: Generate AppStream component index safely ---
 echo "🧩 Generating AppStream component index..."
 
+# Ensure plain XML exists
 if [ ! -f "${APPSTREAM_DIR}/perfume-composer.xml" ]; then
     gunzip -c "$XML_GZ" > "${APPSTREAM_DIR}/perfume-composer.xml"
 fi
@@ -70,40 +71,60 @@ appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" || {
 
 rm -rf "$TMP_COMPOSE"
 
+# --- Step 6b: Cleanup useless folders ---
 echo "🧹 Cleaning up temporary AppStream folders..."
 find "$APPSTREAM_DIR" -type d \( -path "$APPSTREAM_DIR/appstream" -o -path "$APPSTREAM_DIR/usr" \) -exec rm -rf {} + 2>/dev/null || true
 find "$APPSTREAM_DIR" -type f -name "example.xml.gz" -delete 2>/dev/null || true
 echo "✅ Clean AppStream folder ready for push."
 
-# --- Step 7: Commit and push with retry logic ---
+# --- Step 7: Commit and push with smart rebase handling ---
 echo "🪄 Preparing Git commit..."
 git add -A "$APPSTREAM_DIR" "$DEB_PATH" "$XML_GZ" update_appstream.sh || true
-git clean -fdx "$APPSTREAM_DIR"/usr "$APPSTREAM_DIR"/appstream 2>/dev/null || true
 
+# If nothing new is staged, skip commit
 if git diff --cached --quiet; then
     echo "⚠️  No new changes to commit. Everything already up to date."
 else
-    echo "🪄 Committing and pushing..."
-    git commit -m "Add PerfumeComposer ${VERSION} with updated AppStream metadata and index" || true
+    git commit -m "Add PerfumeComposer ${VERSION} with updated AppStream metadata and index"
+fi
 
-    echo "🚀 Pushing to remote..."
-    if ! git push origin main 2>push_error.log; then
-        if grep -q "fetch first" push_error.log; then
-            echo "⚠️  Push rejected — repository not up to date. Pulling latest changes..."
-            git pull --rebase origin main
-            echo "🔁 Retrying push..."
-            git push origin main || {
-                echo "❌ Push failed again — please resolve conflicts manually."
-                exit 1
-            }
+echo "🚀 Pushing to remote..."
+if ! git push origin main 2>push_error.log; then
+    if grep -q "fetch first" push_error.log || grep -q "non-fast-forward" push_error.log; then
+        echo "⚠️  Push rejected — repository not up to date. Attempting auto-sync..."
+        if ! git diff --quiet; then
+            echo "💾 Stashing local uncommitted changes..."
+            git stash push -u -m "auto-stash-before-rebase"
+            STASHED=true
         else
-            echo "❌ Push failed — unknown error:"
-            cat push_error.log
-            exit 1
+            STASHED=false
         fi
+
+        git fetch origin main
+        git rebase origin/main || {
+            echo "❌ Rebase failed — attempting auto-merge fallback..."
+            git rebase --abort || true
+            git merge --no-edit origin/main || true
+        }
+
+        if [ "$STASHED" = true ]; then
+            echo "📦 Restoring stashed changes..."
+            git stash pop || echo "⚠️  Could not apply stash cleanly — please review manually."
+        fi
+
+        echo "🔁 Retrying push..."
+        git push origin main || {
+            echo "❌ Push failed again — please resolve conflicts manually."
+            exit 1
+        }
+    else
+        echo "❌ Push failed — unknown error:"
+        cat push_error.log
+        exit 1
     fi
 fi
 
+# --- Step 8: Success messages ---
 echo "🎉 Done! AppStream, index, and .deb synced for version $VERSION."
 echo "🌐 Published at:"
 echo "   https://perfume-composer.github.io/perfume-composer-apt/appstream/perfume-composer.xml.gz"
