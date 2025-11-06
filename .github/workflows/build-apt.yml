@@ -74,7 +74,7 @@ jobs:
       
           cp appstream/perfume-composer.xml.gz public/dists/stable/main/dep11/perfume-composer.xml.gz
       
-          gzip -d appstream/perfume-composer.xml.gz
+          gzip -df appstream/perfume-composer.xml.gz || true
           appstreamcli convert appstream/perfume-composer.xml public/dists/stable/main/dep11/Components-amd64.yml
           gzip -f public/dists/stable/main/dep11/Components-amd64.yml
           gzip -f appstream/perfume-composer.xml
