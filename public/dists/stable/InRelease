@@ -10,25 +10,26 @@ Acquire-By-Hash: no
 Architectures: amd64
 Components: main
 Description: Perfume Composer APT Repository
-Date: Wed, 05 Nov 2025 17:29:01 +0000
+Date: Thu, 06 Nov 2025 14:08:49 +0000
 
 SHA256:
- a300880aef0a40e8d6b29d651c9496a1c90cb552b3a6bb9b41b745f8f1fb379f 937 dists/stable/main/dep11/perfume-composer.xml.gz
+ f41f36f7eaaec3b16690e413e82075629b6410578650afcb14687cb9a4310feb 935 dists/stable/main/dep11/perfume-composer.xml.gz
  5581984945628aaabcece46379b212a22cec4e9ead4770e13360cbb4605d9340 2369 dists/stable/main/dep11/perfume-composer.xml
  4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe 67 dists/stable/main/dep11/Components-amd64.yml.gz
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkLiV0ACgkQq+NnZzRP
-+4PLww/+KHAB2s55ZRuNslbc2NvmLILZfwGLBmYRVE/yukXiE3IGMjpSx2bAv3QW
-WeoXfWIKrqn+CBsn8Zi18aKyBWLQW8nzM9b0OnWrjRQvYWJlujH7sOv80Zzf7IUr
-dfrf8mkYiQCBs/LIkm22I+RVlPvoFuXsCV6Hq6HzaCtjH5hTQ323ZoOCgOCp3jNp
-Hlb1PL+yfRO1tYiT2yB+mfsvm5AxDEX5m2t8eERCB1C7MENpQ40zzpS355jqENVz
-egOEo/Perdp2idqLfmpkAI9KXHbNsS6OWgjDx0Uh0FUY/YJdtxpS0ExQ6h3bPvgY
-Y2/MWMkEuKxvLavsOjXXeRuhk70wo4iWlVMQkRJ5EbaFcBYypdCdz8M42kQ8TNk+
-iBHuzIwS70Wsiz7yCS9pZDaRn6hLozSvhzHM4M3HNXWnHoksrX8m0hG3dlu1YIKs
-TAXmcCNBC5nE8ffFFwWaHLX7qwZVOOKezYQ85yPNpJ5JUKX76mCdu4nZuOsw0NFI
-rO3HAH6oXSpslv0N6f1vxezNQ5yl7wfwFKC7oNup4Hy8k6oGn7x8LWtPY6hlaBOz
-cfSUdZDJlbZHA1iTn6AUWcaUkX86AWxIej2kNKrYgjwm+j6J/OcGroB9mOReaYRb
-O2n1tRWzjg4vmnMi4w5w5l+eb2QaySYXkHOB1can46FyOkyUT0I=
-=/QNg
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkMq/oACgkQq+NnZzRP
++4N5jxAAw7ZUQYDJKiArzM6VjnmBueMastEnFFXDjQ1UjQENCju07KLquQPkUPaf
+dVRjYDfXSG7i2gYD3mH5EQOCWvwAKHnmxrPPEito9EZoY7AhjmkeCqBsvwl6XFHh
+7br+SLspetf1CgKw5abjCcZhg2tqmsZ9T8+PPj2QR23f3zowj7vh1rNq2Da4kT2N
+Lf0TC4S2zQQeaRTowpam3ha6mxg7mM0wob9JMWxcTywCWcEhSgcNMQjH4ABc1Wj9
+xQlRrim1JaMxvcUbjMvaM9kW0ywCi/XifZmc20yXgE6mjDmbCoDqFSvNEi/egfnL
+rin34Kv/evLcBFMgtV7X9HWh3rQSSMs5OXx61cqBChq2l/LWXHP8n1VJjYmTGu/w
+CR5CXP+31UzJxOV0zOXo1W/AxOzW9x5pJ5H38Bdfc6EWQyKvCjKNEnS41+Bnn/ZQ
+q4kLmxgGGFiecHGZQ6tuKncKKNKAVb68Y4uOPmZaKthF1kgo66AQ5us8c12Aatc8
+hj6KohbKjlLYnfeibbbVtzhLKNpbzuGWMKYhRtAcDyHlHKmSgakUXfZ5lwqsjV7b
+FS2u1PRkgT9HJkVOs1iwNk+RH1Kc8QYeKJEWgCN7GjFMH00C73Rs2o6z6Xl6QQuD
+Scwtvn2orIouznWbRCjKgRU3MbO800dzG8I8t0Tr07cC9yVoq0s=
+=DcMU
 -----END PGP SIGNATURE-----
