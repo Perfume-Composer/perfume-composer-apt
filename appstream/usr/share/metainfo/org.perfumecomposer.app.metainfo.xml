@@ -16,8 +16,7 @@
   <url type="help">https://github.com/Perfume-Composer/perfume-composer-apt/wiki</url>
 
   <!-- AppStream icons for validation and display -->
-  <icon type="stock">perfume-composer</icon>
-  <icon type="remote">https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png</icon>
+  <icon type="stock">perfume-composer</icon>  
 
   <screenshots>
   <screenshot type="default">
