@@ -70,6 +70,16 @@ find "$APPSTREAM_DIR" -type f -name "example.xml.gz" -delete 2>/dev/null || true
 
 echo "✅ AppStream ready for commit."
 
+# --- Step 7b: Keep readable copies (for manual inspection)
+echo "📖 Creating readable XML and YAML copies..."
+if [ -f "${APPSTREAM_DIR}/perfume-composer.xml.gz" ]; then
+    gunzip -c "${APPSTREAM_DIR}/perfume-composer.xml.gz" > "${APPSTREAM_DIR}/perfume-composer.xml" || true
+fi
+if [ -f "${APPSTREAM_DIR}/Components-amd64.yml.gz" ]; then
+    gunzip -c "${APPSTREAM_DIR}/Components-amd64.yml.gz" > "${APPSTREAM_DIR}/Components-amd64.yml" || true
+fi
+echo "✅ Readable copies added (perfume-composer.xml + Components-amd64.yml)"
+
 # --- Step 8: Git commit logic ---
 echo "🪄 Preparing Git commit..."
 git add -A "$APPSTREAM_DIR" "$DEB_PATH" update_appstream.sh || true

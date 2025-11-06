@@ -1,0 +1,66 @@
+---
+File: DEP-11
+Version: '1.0'
+---
+Type: desktop-application
+ID: org.perfumecomposer.app
+ProjectLicense: GPL-3.0-or-later
+Name:
+  C: Perfume Composer
+Summary:
+  C: Professional fragrance composition and formulation tool
+Description:
+  C: >-
+    <p>Perfume Composer is a professional application designed for perfumers to create, organize, and manage fragrance formulas
+    with precision. It includes IFRA compliance validation, cost-per-gram calculations, and label printing integration.</p>
+
+    <p>It supports fragrance banks, recipe import/export in JSON and CSV, and automatic label frame management for Bluetooth
+    label printers.</p>
+Developer:
+  id: io.github.perfume-composer
+  name:
+    C: Perfume Composer Team
+Categories:
+- Science
+- Utility
+Keywords:
+  C:
+  - perfume
+  - fragrance
+  - composition
+  - aroma
+Url:
+  homepage: https://perfume-composer.github.io/perfume-composer-apt/
+  bugtracker: https://github.com/Perfume-Composer/perfume-composer-apt/issues
+  help: https://github.com/Perfume-Composer/perfume-composer-apt/wiki
+Icon:
+  stock: perfume-composer
+  remote:
+  - url: https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png
+Launchable:
+  desktop-id:
+  - perfume-composer.desktop
+Provides:
+  binaries:
+  - perfume-composer
+Screenshots:
+- default: true
+  caption:
+    C: Professional Perfume Composer.
+  thumbnails: []
+  source-image:
+    url: https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer.png
+- caption:
+    C: Dark theme for extended comfort and readability.
+  thumbnails: []
+  source-image:
+    url: https://perfume-composer.github.io/perfume-composer-apt/screenshots/professional-perfume-composer-screenshot.png
+Releases:
+- version: 1.0.5
+  type: stable
+  unix-timestamp: 1762214400
+  description:
+    C: >-
+      <p>Dark theme overhaul, IFRA improvements, and APT repository integration.</p>
+ContentRating:
+  oars-1.1: {}
