@@ -70,7 +70,7 @@ find "$APPSTREAM_DIR" -type f -name "example.xml.gz" -delete 2>/dev/null || true
 
 echo "✅ AppStream ready for commit."
 
-# --- Step 7b: Keep readable copies (for manual inspection)
+# --- Step 7a: Keep readable copies (for manual inspection)
 echo "📖 Creating readable XML and YAML copies..."
 if [ -f "${APPSTREAM_DIR}/perfume-composer.xml.gz" ]; then
     gunzip -c "${APPSTREAM_DIR}/perfume-composer.xml.gz" > "${APPSTREAM_DIR}/perfume-composer.xml" || true
@@ -79,6 +79,18 @@ if [ -f "${APPSTREAM_DIR}/Components-amd64.yml.gz" ]; then
     gunzip -c "${APPSTREAM_DIR}/Components-amd64.yml.gz" > "${APPSTREAM_DIR}/Components-amd64.yml" || true
 fi
 echo "✅ Readable copies added (perfume-composer.xml + Components-amd64.yml)"
+
+# --- Step 7b: Publish AppStream to dep11 folder for Software Manager ---
+DEP11_DIR="public/dists/stable/main/dep11"
+mkdir -p "$DEP11_DIR"
+
+echo "📤 Copying AppStream XML to $DEP11_DIR..."
+cp "$XML_GZ" "$DEP11_DIR/perfume-composer.xml.gz"
+
+# --- Step 7c: Update APT Release files ---
+echo "🔐 Regenerating Release files..."
+apt-ftparchive release public/dists/stable > public/dists/stable/Release
+gpg --clearsign -o public/dists/stable/InRelease public/dists/stable/Release
 
 # --- Step 8: Git commit logic ---
 echo "🪄 Preparing Git commit..."
