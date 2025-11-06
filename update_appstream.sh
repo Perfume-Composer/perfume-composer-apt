@@ -93,7 +93,27 @@ cp "$XML_GZ" "$DEP11_DIR/perfume-composer.xml.gz"
 echo "🔐 Regenerating Release files (including DEP-11)..."
 cd public
 
-# Build a proper temporary config file for apt-ftparchive
+# Ensure binary package index exists
+mkdir -p dists/stable/main/binary-amd64
+
+# Detect where the pool really is (root-level, not inside public)
+if [ -d "../pool/main/p/perfume-composer" ]; then
+    POOL_PATH="../pool/main/p/perfume-composer"
+elif [ -d "pool/main/p/perfume-composer" ]; then
+    POOL_PATH="pool/main/p/perfume-composer"
+else
+    echo "❌ Could not find pool/main/p/perfume-composer directory!"
+    exit 1
+fi
+
+echo "📦 Using pool path: $POOL_PATH"
+apt-ftparchive packages "$POOL_PATH" > dists/stable/main/binary-amd64/Packages
+gzip -f dists/stable/main/binary-amd64/Packages
+
+# --- Step 7d: Generate Release metadata and integrate DEP-11 ---
+echo "🔐 Building final Release metadata..."
+
+# Build temporary apt-ftparchive config
 TMP_CFG=$(mktemp)
 cat > "$TMP_CFG" <<EOF
 Dir {
@@ -115,7 +135,7 @@ BinDirectory "dists/stable/main/dep11" {
 };
 EOF
 
-# Regenerate full Release metadata and include dep11 checksums
+# Generate Release metadata
 apt-ftparchive \
   -o APT::FTPArchive::Release::Origin="Perfume Composer" \
   -o APT::FTPArchive::Release::Label="Perfume Composer" \
@@ -125,13 +145,17 @@ apt-ftparchive \
   -o APT::FTPArchive::Release::Components="main" \
   release dists/stable > dists/stable/Release
 
-# Add DEP-11 section via generate config
-apt-ftparchive generate "$TMP_CFG"
+# ✅ Ensure DEP-11 file exists to avoid apt-ftparchive failure
+if [ ! -f "dists/stable/main/dep11/Components-amd64.yml.gz" ]; then
+    echo "⚠️  DEP-11 file missing — creating empty placeholder."
+    echo "# Empty DEP-11 metadata placeholder" | gzip -c > dists/stable/main/dep11/Components-amd64.yml.gz
+fi
 
-# Clean up temp config
+# Integrate DEP-11 checksum
+apt-ftparchive generate "$TMP_CFG"
 rm -f "$TMP_CFG"
 
-# Re-sign Release file
+# Sign Release
 gpg --clearsign -o dists/stable/InRelease dists/stable/Release
 cd -
 
