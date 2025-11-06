@@ -2,7 +2,7 @@
 set -e
 
 # ==============================
-# Perfume Composer AppStream sync
+# Perfume Composer AppStream sync (auto git recovery)
 # ==============================
 
 if [ -z "$1" ]; then
@@ -54,17 +54,14 @@ fi
 # --- Step 6: Generate AppStream component index safely ---
 echo "🧩 Generating AppStream component index..."
 
-# Ensure plain XML exists
 if [ ! -f "${APPSTREAM_DIR}/perfume-composer.xml" ]; then
     gunzip -c "$XML_GZ" > "${APPSTREAM_DIR}/perfume-composer.xml"
 fi
 
-# Create proper directory structure for compose
 TMP_COMPOSE=$(mktemp -d)
 mkdir -p "$TMP_COMPOSE/usr/share/metainfo"
 cp "${APPSTREAM_DIR}/perfume-composer.xml" "$TMP_COMPOSE/usr/share/metainfo/"
 
-# Compose metadata (explicit output directory)
 appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" || {
     echo "⚠️  appstreamcli compose failed."
     rm -rf "$TMP_COMPOSE"
@@ -73,28 +70,38 @@ appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" || {
 
 rm -rf "$TMP_COMPOSE"
 
-# --- Step 6b: Cleanup useless folders left by appstreamcli ---
 echo "🧹 Cleaning up temporary AppStream folders..."
 find "$APPSTREAM_DIR" -type d \( -path "$APPSTREAM_DIR/appstream" -o -path "$APPSTREAM_DIR/usr" \) -exec rm -rf {} + 2>/dev/null || true
 find "$APPSTREAM_DIR" -type f -name "example.xml.gz" -delete 2>/dev/null || true
 echo "✅ Clean AppStream folder ready for push."
 
-# --- Step 7: Commit and push ---
+# --- Step 7: Commit and push with retry logic ---
 echo "🪄 Preparing Git commit..."
-
-# Ensure we stage all deletions and modifications (avoid dirty tree)
 git add -A "$APPSTREAM_DIR" "$DEB_PATH" "$XML_GZ" update_appstream.sh || true
-
-# Remove any untracked temp files left behind (like decompressed XMLs)
 git clean -fdx "$APPSTREAM_DIR"/usr "$APPSTREAM_DIR"/appstream 2>/dev/null || true
 
-# Verify staging status
 if git diff --cached --quiet; then
     echo "⚠️  No new changes to commit. Everything already up to date."
 else
-    echo "🪄 Adding and committing new AppStream + .deb..."
-    git commit -m "Add PerfumeComposer ${VERSION} with updated AppStream metadata and index"
-    git push origin main
+    echo "🪄 Committing and pushing..."
+    git commit -m "Add PerfumeComposer ${VERSION} with updated AppStream metadata and index" || true
+
+    echo "🚀 Pushing to remote..."
+    if ! git push origin main 2>push_error.log; then
+        if grep -q "fetch first" push_error.log; then
+            echo "⚠️  Push rejected — repository not up to date. Pulling latest changes..."
+            git pull --rebase origin main
+            echo "🔁 Retrying push..."
+            git push origin main || {
+                echo "❌ Push failed again — please resolve conflicts manually."
+                exit 1
+            }
+        else
+            echo "❌ Push failed — unknown error:"
+            cat push_error.log
+            exit 1
+        fi
+    fi
 fi
 
 echo "🎉 Done! AppStream, index, and .deb synced for version $VERSION."
@@ -102,18 +109,4 @@ echo "🌐 Published at:"
 echo "   https://perfume-composer.github.io/perfume-composer-apt/appstream/perfume-composer.xml.gz"
 echo "   https://perfume-composer.github.io/perfume-composer-apt/appstream/Components-amd64.yml.gz"
 echo "🧭 Run 'sudo apt update && sudo appstreamcli refresh-cache --force' to refresh Mint Software Manager."
-
-# --- ✅ Step 8: Trigger GitHub workflow rebuild automatically (new addition) ---
-if [ -f ~/.github_token ]; then
-    GITHUB_TOKEN=$(<~/.github_token)
-    echo "🚀 Triggering GitHub workflow rebuild for version ${VERSION}..."
-    curl -s -X POST \
-      -H "Accept: application/vnd.github+json" \
-      -H "Authorization: Bearer $GITHUB_TOKEN" \
-      https://api.github.com/repos/Perfume-Composer/perfume-composer-apt/actions/workflows/build-apt.yml/dispatches \
-      -d '{"ref":"main"}'
-    echo "✅ Workflow triggered successfully."
-else
-    echo "⚠️ No GitHub token found (~/.github_token). Please trigger workflow manually if needed."
-fi
 
