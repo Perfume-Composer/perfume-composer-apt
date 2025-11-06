@@ -208,7 +208,7 @@ jobs:
           fi
 
           # --- Create HTML ---
-          cat > public/index.html <<'HTML'
+          cat > public/index.html <<HTML
           <!DOCTYPE html>
           <html lang="en">
           <head>
