@@ -226,7 +226,7 @@ jobs:
 
           echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
           https://perfume-composer.github.io/perfume-composer-apt stable main" | \
-          sudo tee /etc/apt/sources.list.d/perfume-composer.list
+          sudo tee /etc/apt/sources.list.d/perfume-composer.list &gt; /dev/null
 
           sudo apt update
           sudo apt install perfumecomposer
