@@ -192,7 +192,12 @@ jobs:
         run: |
           echo "🌐 Generating index.html..."
           mkdir -p public
-          VERSION=$(basename $(find pool public -type f -name "PerfumeComposer_*.deb" | head -n 1) | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          VERSION=$(find pool -type f -iname "PerfumeComposer_*.deb" -printf "%f\n" | head -n 1 | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          if [ -z "$VERSION" ]; then
+            echo "❌ Could not detect version — no .deb found!"
+            ls pool/main/p/perfume-composer
+            exit 1
+          fi
           cat > public/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
