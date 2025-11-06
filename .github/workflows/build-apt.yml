@@ -215,7 +215,8 @@ jobs:
             <div class="card">
               <h2>Latest Release</h2>
               <p><strong>Version:</strong> VERSION_PLACEHOLDER</p>
-              <p><a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download PerfumeComposer_VERSION_PLACEHOLDER.deb</a></p>
+              <p>🐧<a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download for Linux (.deb)</a></p>
+              <p>💻 <a href="https://github.com/Perfume-Composer/perfume-composer/releases/latest">⬇️ Download for Windows (.exe)</a></p>
               <img src="screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
             </div>
             <div class="card">
