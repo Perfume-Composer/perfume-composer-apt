@@ -258,7 +258,10 @@ jobs:
           if [ -d "appstream" ] && [ ! -d "public/appstream" ]; then
             cp -r appstream public/
           fi
-      
+          if [ -d "windows" ]; then
+            cp -r windows public/
+            echo "💻 Copied Windows installers to public/"
+          fi      
           if [ -d "screenshots" ]; then
             cp -r screenshots public/
             echo "🖼️  Copied screenshots to public/"
