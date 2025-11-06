@@ -278,7 +278,11 @@ jobs:
           if [ -d "windows" ]; then
             cp -r windows public/
             echo "💻 Copied Windows installers to public/"
-          fi      
+          fi  
+          if [ -d "icons" ]; then
+            cp -r icons public/
+            echo "🎨 Copied icons to public/"
+          fi
           if [ -d "screenshots" ]; then
             cp -r screenshots public/
             echo "🖼️  Copied screenshots to public/"
