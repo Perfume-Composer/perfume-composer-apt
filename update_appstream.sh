@@ -58,7 +58,7 @@ mkdir -p "$TMP_COMPOSE/usr/share/metainfo"
 gunzip -c "$XML_GZ" > "$TMP_COMPOSE/usr/share/metainfo/org.perfumecomposer.app.metainfo.xml"
 
 # Older AppStream versions don’t support --no-network, so we hush harmless warnings
-if appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" 2>&1 | grep -v "icon-not-found"; then
+if appstreamcli compose --origin="Perfume Composer APT" --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" 2>&1 | grep -vE "icon-not-found|Metadata origin not set"; then
     echo "✅ DEP-11 metadata composed (warnings ignored)."
 else
     echo "⚠️  appstreamcli compose finished with non-critical warnings (ignored)."
