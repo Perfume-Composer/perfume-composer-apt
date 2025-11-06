@@ -1,16 +1,13 @@
-Origin: Perfume Composer
-Label: Perfume Composer Repository
-Suite: stable
-Codename: stable
-Version: 1.0
-Acquire-By-Hash: no
-Architectures: amd64
-Components: main
-Description: Perfume Composer APT Repository
-Date: Thu, 06 Nov 2025 14:08:49 +0000
-
+Date: Thu, 06 Nov 2025 23:02:26 +0000
+MD5Sum:
+ 3124c0201c3531b3679ef4ef34300964               38 Release
+ a4be3a33892571209f1dd4fed0e5c41f               67 main/dep11/Components-amd64.yml.gz
+SHA1:
+ fd6e0979875e44dbdf94d8eeaf45f124e9067280               38 Release
+ 569cb473ae3aca68f5fab6f904ffd253a45f60ff               67 main/dep11/Components-amd64.yml.gz
 SHA256:
- f41f36f7eaaec3b16690e413e82075629b6410578650afcb14687cb9a4310feb 935 dists/stable/main/dep11/perfume-composer.xml.gz
- 5581984945628aaabcece46379b212a22cec4e9ead4770e13360cbb4605d9340 2369 dists/stable/main/dep11/perfume-composer.xml
- 4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe 67 dists/stable/main/dep11/Components-amd64.yml.gz
-
+ 2222e9bc96f7c89bd78fc1150894efb0b1bf9611cd86a129f85f3d01d3228bf1               38 Release
+ 4a82a45edeb5c3547bc52d1b351f66f09af77836bb21be356ed35abe82b1a4fe               67 main/dep11/Components-amd64.yml.gz
+SHA512:
+ 58e27fd0d35171fe21708ffe718a0d630cf0d7ef74039c25be8e01b0eb6a3b9b72bfa65e5b79c23f610245230223d3415cebb8259555535f6f6c7c480ae8226b               38 Release
+ e6e594891af053b052b5bab6765623b0919b2a04cc3d3883a3cce6c2006d1e85745a218d325fa8d47958adaf4acb4566deb085777941b5769a849cd5c4f61abf               67 main/dep11/Components-amd64.yml.gz

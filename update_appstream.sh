@@ -94,7 +94,7 @@ gpg --clearsign -o public/dists/stable/InRelease public/dists/stable/Release
 
 # --- Step 8: Git commit logic ---
 echo "🪄 Preparing Git commit..."
-git add -A "$APPSTREAM_DIR" "$DEB_PATH" update_appstream.sh || true
+git add -A "$APPSTREAM_DIR" "$DEB_PATH" "$DEP11_DIR" public/dists/stable update_appstream.sh || true
 
 if git diff --cached --quiet; then
     echo "⚠️  No new changes to commit."
