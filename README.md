@@ -20,4 +20,4 @@ sudo tee /etc/apt/sources.list.d/perfume-composer.list > /dev/null
 
 sudo apt update
 sudo apt install perfumecomposer
-
+```
