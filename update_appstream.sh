@@ -57,7 +57,7 @@ TMP_COMPOSE=$(mktemp -d)
 mkdir -p "$TMP_COMPOSE/usr/share/metainfo"
 gunzip -c "$XML_GZ" > "$TMP_COMPOSE/usr/share/metainfo/org.perfumecomposer.app.metainfo.xml"
 
-if appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE"; then
+if appstreamcli compose --no-network --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE"; then
     echo "✅ DEP-11 metadata composed."
 else
     echo "⚠️  appstreamcli compose failed; continuing."
