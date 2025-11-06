@@ -188,6 +188,7 @@ jobs:
           git tag -a "v$VERSION" -m "Release v$VERSION"
           git push origin "v$VERSION"
 
+
       - name: Generate index.html for GitHub Pages
         run: |
           echo "🌐 Generating index.html..."
@@ -198,6 +199,15 @@ jobs:
             ls pool/main/p/perfume-composer
             exit 1
           fi
+
+          # Detect if Windows installer exists
+          if [ -f "windows/PerfumeComposerSetup_${VERSION}.exe" ]; then
+            WIN_LINK="<p>💻 <a href=\"windows/PerfumeComposerSetup_${VERSION}.exe\">⬇️ Download for Windows (.exe)</a></p>"
+          else
+            WIN_LINK="<p>💻 <em>Windows installer not yet available</em></p>"
+          fi
+
+          # --- Create HTML ---
           cat > public/index.html <<'HTML'
           <!DOCTYPE html>
           <html lang="en">
@@ -220,23 +230,27 @@ jobs:
             <div class="card">
               <h2>Latest Release</h2>
               <p><strong>Version:</strong> VERSION_PLACEHOLDER</p>
-              <p>🐧<a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download for Linux (.deb)</a></p>
-              <p>💻 <a href="windows/PerfumeComposerSetup_VERSION_PLACEHOLDER.exe">⬇️ Download for Windows (.exe)</a></p>
+              <p>🐧 <a href="pool/main/p/perfume-composer/PerfumeComposer_VERSION_PLACEHOLDER.deb">⬇️ Download for Linux (.deb)</a></p>
+              ${WIN_LINK}
               <img src="screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
             </div>
             <div class="card">
               <h2>Install via APT</h2>
+              <p>💡 Quick one-liner install:</p>
+              <pre><code>bash &lt;(curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/install.sh)</code></pre>
+              <p>Or manual installation steps:</p>
               <pre><code>curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | \
-          sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
-
-          echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
-          https://perfume-composer.github.io/perfume-composer-apt stable main" | \
-          sudo tee /etc/apt/sources.list.d/perfume-composer.list &gt; /dev/null
-
-          sudo apt update
-          sudo apt install perfumecomposer
-          </code></pre>
+            sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
+            
+            echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] \
+            https://perfume-composer.github.io/perfume-composer-apt stable main" | \
+            sudo tee /etc/apt/sources.list.d/perfume-composer.list > /dev/null
+            
+            sudo apt update
+            sudo apt install perfumecomposer
+              </code></pre>
             </div>
+
             <div class="card">
               <h2>About</h2>
               <p>Perfume Composer is a professional fragrance composition and IFRA compliance tool for perfumers.</p>
@@ -245,7 +259,10 @@ jobs:
           </body>
           </html>
           HTML
+
+          # --- Replace placeholders ---
           sed -i "s/VERSION_PLACEHOLDER/${VERSION}/g" public/index.html
+
 
       - name: Prepare GitHub Pages content
         run: |
