@@ -11,14 +11,13 @@ This repository allows **Linux Mint**, **Ubuntu**, and **Debian** users to insta
 To add this repository and install Perfume Composer on your system, run:
 
 ```bash
-sudo mkdir -p /usr/share/keyrings
-wget -qO - https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key \
-  | sudo tee /usr/share/keyrings/perfume-composer.gpg >/dev/null
+curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | \
+sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
 
-echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg arch=amd64] \
-https://perfume-composer.github.io/perfume-composer-apt stable main" \
-| sudo tee /etc/apt/sources.list.d/perfume-composer.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/perfume-composer.gpg] \
+https://perfume-composer.github.io/perfume-composer-apt stable main" | \
+sudo tee /etc/apt/sources.list.d/perfume-composer.list > /dev/null
 
 sudo apt update
-sudo apt install perfume-composer
+sudo apt install perfumecomposer
 
