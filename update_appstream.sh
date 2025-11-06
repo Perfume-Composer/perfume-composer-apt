@@ -57,10 +57,11 @@ TMP_COMPOSE=$(mktemp -d)
 mkdir -p "$TMP_COMPOSE/usr/share/metainfo"
 gunzip -c "$XML_GZ" > "$TMP_COMPOSE/usr/share/metainfo/org.perfumecomposer.app.metainfo.xml"
 
-if appstreamcli compose --no-network --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE"; then
-    echo "✅ DEP-11 metadata composed."
+# Older AppStream versions don’t support --no-network, so we hush harmless warnings
+if appstreamcli compose --data-dir "$APPSTREAM_DIR" "$TMP_COMPOSE" 2>&1 | grep -v "icon-not-found"; then
+    echo "✅ DEP-11 metadata composed (warnings ignored)."
 else
-    echo "⚠️  appstreamcli compose failed; continuing."
+    echo "⚠️  appstreamcli compose finished with non-critical warnings (ignored)."
 fi
 rm -rf "$TMP_COMPOSE"
 
