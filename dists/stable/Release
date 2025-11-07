@@ -1,0 +1,11 @@
+cat > dists/stable/Release <<'EOF'
+Origin: Perfume Composer
+Label: Perfume Composer APT Repository
+Suite: stable
+Version: 1.0
+Codename: stable
+Architectures: amd64
+Components: main
+Description: Perfume Composer custom APT repository
+AppStream: appstream/Components-amd64.yml.gz
+EOF
