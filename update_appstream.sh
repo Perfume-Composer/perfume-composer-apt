@@ -72,5 +72,5 @@ echo "  - DEP-11: $APPSTREAM_DIR/Components-amd64.yml.gz"
 echo
 echo "✨ AppStream data ready for git commit and push."
 
-read -p "Press Enter to close..."
+
 
