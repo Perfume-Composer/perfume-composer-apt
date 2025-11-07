@@ -34,7 +34,7 @@ jobs:
           git commit -m "chore: ensure LFS tracking for .exe and .deb" || true
           git push || true
 
-      - name: Install required packages
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y dpkg-dev gnupg rsync appstream tree
@@ -48,6 +48,13 @@ jobs:
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
 
+      - name: Clean old versions from pool before upload
+        run: |
+          echo "🧽 Removing old .deb packages..."
+          find pool/main/p/perfume-composer/ -type f -name "PerfumeComposer_*.deb" \
+          -not -name "$(basename $(ls -t pool/main/p/perfume-composer/PerfumeComposer_*.deb | head -n 1))" \
+          -delete || true
+
       - name: Prepare repository structure
         run: |
           echo "📁 Preparing repository..."
@@ -57,7 +64,7 @@ jobs:
           mkdir -p public/appstream
           mkdir -p public/docs
 
-          echo "📦 Copying assets..."
+          echo "📦 Copying content..."
           cp -v pool/main/p/perfume-composer/*.deb public/pool/main/p/perfume-composer/
           cp -v PERFUME-COMPOSER.gpg.key public/
           cp -v install.sh public/
@@ -84,13 +91,6 @@ jobs:
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
-      - name: Clean old versions from pool before upload
-        run: |
-          echo "🧽 Removing old .deb packages from remote pool..."
-          find pool/main/p/perfume-composer/ -type f -name "PerfumeComposer_*.deb" \
-          -not -name "$(basename $(ls -t pool/main/p/perfume-composer/PerfumeComposer_*.deb | head -n 1))" \
-          -delete || true
-
       - name: Generate DEP-11 metadata
         run: |
           echo "🧩 Generating DEP-11 metadata..."
@@ -101,11 +101,11 @@ jobs:
           gzip -f appstream/perfume-composer.xml
           echo "✅ DEP-11 ready."
 
-      - name: Sign Release
+      - name: Sign Release files
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          echo "🔏 Signing Release files..."
+          echo "🔏 Signing Release..."
           cd public/dists/stable
           echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 -abs -o Release.gpg Release
           echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --clearsign -o InRelease Release
