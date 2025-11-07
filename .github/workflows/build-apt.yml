@@ -84,6 +84,13 @@ jobs:
           apt-ftparchive release dists/stable >> dists/stable/Release
           cd -
 
+      - name: Clean old versions from pool before upload
+        run: |
+          echo "🧽 Removing old .deb packages from remote pool..."
+          find pool/main/p/perfume-composer/ -type f -name "PerfumeComposer_*.deb" \
+          -not -name "$(basename $(ls -t pool/main/p/perfume-composer/PerfumeComposer_*.deb | head -n 1))" \
+          -delete || true
+
       - name: Generate DEP-11 metadata
         run: |
           echo "🧩 Generating DEP-11 metadata..."
@@ -129,6 +136,7 @@ jobs:
               a:hover { text-decoration: underline; }
               .card { background: #141414; padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; }
               img { width: 100%; max-width: 600px; border-radius: 10px; margin-top: 1rem; }
+              footer { text-align: center; margin-top: 3rem; font-size: 0.9em; color: #888; }
             </style>
           </head>
           <body>
@@ -136,6 +144,7 @@ jobs:
             <div class="card">
               <h2>Latest Version</h2>
               <p><strong>Version:</strong> ${VERSION}</p>
+              <p><strong>Build date:</strong> $(date -u +"%Y-%m-%d")</p>
               <p>🐧 <a href="pool/main/p/perfume-composer/PerfumeComposer_${VERSION}.deb">⬇️ Download for Linux (.deb)</a></p>
               ${WIN_LINK}
               <img src="appstream/screenshots/professional-perfume-composer.png" alt="Screenshot">
@@ -144,6 +153,9 @@ jobs:
               <h2>Install via APT</h2>
               <pre><code>bash &lt;(curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/install.sh)</code></pre>
             </div>
+            <footer>
+              Maintained by the <strong>Perfume Composer Team</strong> — crafted with 💜 by Chris &amp; Paul
+            </footer>
           </body>
           </html>
           HTML
