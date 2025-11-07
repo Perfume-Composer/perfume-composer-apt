@@ -8,4 +8,5 @@ Architectures: amd64
 Components: main
 Description: Perfume Composer custom APT repository
 AppStream: appstream/Components-amd64.yml.gz
+AppStream: appstream/Components-amd64.yml
 EOF
