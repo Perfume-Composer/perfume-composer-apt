@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-perfume-composer-recipe">
+    <comment>Perfume Composer Recipe</comment>
+    <glob pattern="*.prf"/>
+    <icon name="application-x-perfume-composer-recipe"/>
+  </mime-type>
+</mime-info>

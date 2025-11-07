@@ -1,0 +1,15 @@
+#!/bin/bash
+# Perfume Composer Thumbnailer – static icon version (no ImageMagick needed)
+
+ICON="/usr/share/icons/hicolor/256x256/mimetypes/application-x-perfume-composer-recipe.png"
+INPUT="$1"
+OUTPUT="$2"
+
+# Just copy the icon to the expected thumbnail path
+if [ -f "$ICON" ]; then
+    cp "$ICON" "$OUTPUT"
+    exit 0
+else
+    echo "❌ Icon not found at $ICON" >&2
+    exit 1
+fi
