@@ -20,6 +20,7 @@
 
   <!-- AppStream icons for validation and display -->
   <icon type="stock">perfume-composer</icon>
+  <icon type="remote" width="128" height="128">https://perfume-composer.github.io/perfume-composer-apt/icons/perfume-composer.png</icon>
 
    <screenshots>
   <screenshot type="default">
