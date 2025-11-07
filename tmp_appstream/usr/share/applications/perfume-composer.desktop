@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Perfume Composer
+Comment=Program designed for the professional perfumer
+Exec=/usr/bin/perfume-composer %f
+Icon=perfume-composer
+Terminal=false
+Type=Application
+Categories=Utility;Science;
+MimeType=application/x-perfume-composer-recipe;

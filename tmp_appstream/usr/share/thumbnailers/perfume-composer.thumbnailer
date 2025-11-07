@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/usr/bin/perfume-composer-thumbnailer
+Exec=/usr/bin/perfume-composer-thumbnailer %i %o
+MimeType=application/x-perfume-composer-recipe;
