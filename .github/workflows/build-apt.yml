@@ -26,8 +26,8 @@ jobs:
       - name: Pull LFS files
         run: git lfs pull
 
-      - name: Install build tools
-        run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg rsync appstream tree
+      - name: Install APT tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev gnupg appstream rsync tree
 
       - name: Import GPG private key
         env:
@@ -38,53 +38,28 @@ jobs:
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
           gpg --list-secret-keys --keyid-format=long
 
-      # --------------------------------------------
-      # STEP 1 — BUILD APT STRUCTURE
-      # --------------------------------------------
-      - name: Build APT structure
+      - name: Prepare repository structure
         run: |
           echo "📁 Preparing repository structure..."
           mkdir -p dists/stable/main/binary-amd64
           mkdir -p pool/main/p/perfume-composer
-
+          
           echo "📦 Checking .deb packages..."
           if compgen -G "PerfumeComposer_*.deb" > /dev/null; then
             echo "✅ Found .deb at root — copying to pool/"
             cp -u PerfumeComposer_*.deb pool/main/p/perfume-composer/
+          elif compgen -G "pool/main/p/perfume-composer/PerfumeComposer_*.deb" > /dev/null; then
+            echo "📦 .deb already present inside pool — skipping copy."
           else
-            echo "⚠️  No .deb file found at repo root."
+            echo "❌ No .deb file found anywhere!"
+            exit 1
           fi
 
-          echo "🧾 Generating Packages index..."
-          cd pool/main/p/perfume-composer
-          dpkg-scanpackages . /dev/null | gzip -9c > ../../../../../dists/stable/main/binary-amd64/Packages.gz
-          cd ../../../../../
-          echo "✅ Packages.gz built successfully"
+          echo "🧾 Generating Packages..."
+          dpkg-scanpackages pool/main/p/perfume-composer > dists/stable/main/binary-amd64/Packages
+          gzip -kf dists/stable/main/binary-amd64/Packages
 
-      # --------------------------------------------
-      # STEP 2 — GENERATE APPSTREAM (DEP-11)
-      # --------------------------------------------
-      - name: Generate DEP-11 AppStream metadata
-        run: |
-          echo "🧩 Generating DEP-11 metadata..."
-          mkdir -p dists/stable/main/dep11
-
-          cp appstream/perfume-composer.xml.gz dists/stable/main/dep11/perfume-composer.xml.gz
-          gzip -df appstream/perfume-composer.xml.gz || true
-          appstreamcli convert appstream/perfume-composer.xml dists/stable/main/dep11/Components-amd64.yml
-          gzip -f dists/stable/main/dep11/Components-amd64.yml
-          gzip -f appstream/perfume-composer.xml || true
-
-          echo "✅ DEP-11 generated at dists/stable/main/dep11/Components-amd64.yml.gz"
-
-      # --------------------------------------------
-      # STEP 3 — CREATE RELEASE METADATA & SIGN
-      # --------------------------------------------
-      - name: Build Release file and sign
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          echo "🧾 Building and signing Release..."
+          echo "📜 Creating Release file..."
           cat > dists/stable/Release <<EOF
           Origin: Perfume Composer
           Label: Perfume Composer
@@ -98,87 +73,76 @@ jobs:
 
           apt-ftparchive release dists/stable >> dists/stable/Release
 
+      - name: Generate AppStream DEP-11 metadata
+        run: |
+          echo "🧩 Generating DEP-11 metadata for Software Manager..."
+          mkdir -p dists/stable/main/dep11
+
+          cp appstream/perfume-composer.xml.gz dists/stable/main/dep11/
+          cp appstream/Components-amd64.yml.gz dists/stable/main/dep11/
+
+          echo "✅ DEP-11 files placed in dists/stable/main/dep11"
+
+      - name: Sign repository Release files
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "🔏 Signing Release files..."
+          cd dists/stable
           echo "$GPG_PASSPHRASE" | \
             gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
-            -abs -o dists/stable/Release.gpg dists/stable/Release
-
+            -abs -o Release.gpg Release
           echo "$GPG_PASSPHRASE" | \
             gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
-            --clearsign -o dists/stable/InRelease dists/stable/Release
+            --clearsign -o InRelease Release
+          cd ../..
 
-          echo "✅ Release metadata signed."
+      - name: Include public key
+        run: cp PERFUME-COMPOSER.gpg.key dists/stable/
 
-      # --------------------------------------------
-      # STEP 4 — COPY KEY AND WINDOWS INSTALLER
-      # --------------------------------------------
-      - name: Copy GPG key and Windows installer
+      - name: Generate index.html for GitHub Pages
         run: |
-          mkdir -p public
-          cp PERFUME-COMPOSER.gpg.key public/
-          cp -r pool dists appstream public/
-          if [ -d "windows" ]; then
-            cp -r windows public/
-          fi
-
-      # --------------------------------------------
-      # STEP 5 — GENERATE INDEX.HTML
-      # --------------------------------------------
-      - name: Generate index.html
-        run: |
-          echo "🌐 Generating index.html..."
-          VERSION=$(find pool -type f -iname "PerfumeComposer_*.deb" -printf "%f\n" | head -n 1 | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
-          WIN_LINK=""
-          if [ -f "windows/PerfumeComposerSetup_${VERSION}.exe" ]; then
-            WIN_LINK="<p>💻 <a href=\"windows/PerfumeComposerSetup_${VERSION}.exe\">⬇️ Download for Windows (.exe)</a></p>"
-          else
-            WIN_LINK="<p>💻 <em>Windows installer not available</em></p>"
-          fi
-
-          cat > public/index.html <<HTML
+          VERSION=$(find pool/main/p/perfume-composer -type f -iname "PerfumeComposer_*.deb" | head -n 1 | sed 's/.*PerfumeComposer_\(.*\)\.deb/\1/')
+          echo "🌐 Generating index.html for version $VERSION..."
+          cat > index.html <<HTML
           <!DOCTYPE html>
           <html lang="en">
           <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Perfume Composer APT Repository</title>
+            <title>Perfume Composer Repository</title>
             <style>
-              body { font-family: Arial, sans-serif; background: #0b0b0b; color: #eaeaea; line-height: 1.6; padding: 2rem; }
-              h1 { color: #a7e3ff; text-shadow: 0 0 5px #1e90ff; }
-              code, pre { background: #222; color: #9effa8; padding: 0.3rem 0.5rem; border-radius: 5px; }
-              a { color: #9ecbff; text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              .card { background: #141414; padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; box-shadow: 0 0 10px #000; }
-              img { max-width: 600px; width: 100%; border-radius: 10px; margin-top: 1rem; }
+              body { font-family: Arial, sans-serif; background:#0b0b0b; color:#eaeaea; line-height:1.6; padding:2rem; }
+              h1 { color:#a7e3ff; text-shadow:0 0 5px #1e90ff; }
+              code, pre { background:#222; color:#9effa8; padding:0.3rem 0.5rem; border-radius:5px; }
+              a { color:#9ecbff; text-decoration:none; }
+              a:hover { text-decoration:underline; }
             </style>
           </head>
           <body>
             <h1>🌿 Perfume Composer APT Repository</h1>
-            <div class="card">
-              <h2>Latest Release</h2>
-              <p><strong>Version:</strong> ${VERSION}</p>
-              <p>🐧 <a href="pool/main/p/perfume-composer/PerfumeComposer_${VERSION}.deb">⬇️ Download for Linux (.deb)</a></p>
-              ${WIN_LINK}
-              <img src="appstream/screenshots/professional-perfume-composer.png" alt="Perfume Composer Screenshot">
-            </div>
-
-            <div class="card">
-              <h2>Install via APT</h2>
-              <pre><code>bash &lt;(curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/install.sh)</code></pre>
-            </div>
-
-            <div class="card">
-              <h2>About</h2>
-              <p>Perfume Composer is a professional fragrance composition and IFRA compliance tool for perfumers.</p>
-              <p>Maintained by <strong>Perfume Composer Team</strong> — crafted with care by Chris and Paul 🧪</p>
-            </div>
+            <p><strong>Version:</strong> $VERSION</p>
+            <p>🐧 <a href="pool/main/p/perfume-composer/PerfumeComposer_${VERSION}.deb">Download for Linux (.deb)</a></p>
+            <p>💻 <a href="windows/PerfumeComposerSetup_${VERSION}.exe">Download for Windows (.exe)</a></p>
+            <h2>Install via APT</h2>
+            <p>💡 Quick one-liner:</p>
+            <pre><code>bash &lt;(curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/install.sh)</code></pre>
+            <p>Or manual setup:</p>
+            <pre><code>curl -fsSL https://perfume-composer.github.io/perfume-composer-apt/PERFUME-COMPOSER.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/perfume-composer.gpg
+            echo "deb [signed-by=/usr/share/keyrings/perfume-composer.gpg] https://perfume-composer.github.io/perfume-composer-apt stable main" | sudo tee /etc/apt/sources.list.d/perfume-composer.list
+            sudo apt update
+            sudo apt install perfumecomposer</code></pre>
           </body>
           </html>
           HTML
-          echo "✅ index.html created in public/"
 
-      # --------------------------------------------
-      # STEP 6 — DEPLOY TO GITHUB PAGES
-      # --------------------------------------------
+      - name: Prepare GitHub Pages content
+        run: |
+          echo "📦 Preparing content for GitHub Pages..."
+          mkdir -p public
+          cp -r dists pool appstream windows docs PERFUME-COMPOSER.gpg.key index.html install.sh public/
+          echo "✅ Repository content copied to public/"
+          tree -L 3 public
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
