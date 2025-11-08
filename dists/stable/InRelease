@@ -1,7 +1,6 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-cat > dists/stable/Release <<'EOF'
 Origin: Perfume Composer
 Label: Perfume Composer APT Repository
 Suite: stable
@@ -10,22 +9,21 @@ Codename: stable
 Architectures: amd64
 Components: main
 Description: Perfume Composer custom APT repository
+Date: Sat, 08 Nov 2025 10:48:56 +0000
 AppStream: appstream/Components-amd64.yml.gz
-AppStream: appstream/Components-amd64.yml
-EOF
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkOYBgACgkQq+NnZzRP
-+4PTCxAApAqbvZxsJf+GiWEpgYPM5yNEZ84OagDFCb7XfbZmoXb3AGkysrqyxDkC
-dcvdK07rVUFF0uNY3L+UzXFwVyJltYPYi8Gv6qyWBWL2meL8wu398bwuz/zPWjAj
-zhF6x/syJkfszmmE1yu43Wbn5JgMF9hnmeXAR7ZfNcv0QpF9lTXj9owqS9qCL8R+
-nSQNxhd8LT0Ch8Fr1XGG4JbhihCghVINjRsPXqaWLRNrK9W/B5js7KkqFnI0pdLO
-BqN/n9lC2QHbki2TZocnHVZDqZ2/ecCkeS5T/GkEHEor40eCpZwhNcIot9NATbZE
-jwqP34FDXvHK0IXvWr20HNXoG0Y8cVEeqZKRIfCJWJgMmNbQeInJV1u14hvMZ0rI
-kadBDrRok7JpZgAI8xegvpp2z9VIAjXAWVQnPZihNexo5dqe2FDMgGMsIW/c+bx+
-9NPWKaXQkU+wsUeiEHQt/bs/Y1tC5VX38+3scD/XL+pvTtJMzFMamoeE+e/XEy98
-LKxAwUjDfmj8brFu4dBViFuNHb2VSN6QfX4ma1vfkXb1PX/DFr8Djoc1UygEr0xr
-0d8UN6QMsYpVvAD1U4KAgrVi5nj7xKc//yRq9UxYBByKz8KiJV97VcFey2NQbXPo
-mKpvkfNNlqRH7/gmi2udkMdDOQZFa7tPjFt024BEsnaq5IThY/c=
-=OTbv
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmkPSu4ACgkQq+NnZzRP
++4NI/A/5AflKUaobjCZ1oLe3hFDjfDqPrn2LtrB9Nds7/FSTvaaZAsNBUEOek2EZ
+F06n21da9+CZlptRariA8D03PtqGm1dPFzp8pPob2PGWfA19cVIkzt7IrJE0QUVx
+c/d1BwGcSXs/qs91jX5RIxtqKlPXUbMfGcWj4TQkOghFFhxNU3izEQAzBYv26t7O
+aRVl/ejdzewKbwuiRKvNTMZ/vRQOQt4pVE4nsXykz2VWPV+DiNyy9D1Qn73qembO
+B4IjqiCHvLGXL4Q2DMp0Ny1aKZ5Cf5l2erKPMvn096RkyY3ugbMR0vh58XKFQFaC
+4N8UAVbpuHeL4NhKF3knmHY6JjZUWKrqf8I1GA9/yRJ70dheZfuBABt3dsffMRRO
+hVuFdAkS1kJxaOxIRk7a99eeeDEl1v6PNTtFrsH2vAMeCl11GegMZKndmwhJZuB7
+mpw0OcRy6u2ZEczmcKhIrQCZ3x73a1ekEv1hp9XBvgCPbC1UMdJ89QKkn3uQZFpt
+o6Zt1jLO5C/Wm7YLPiHn7HlaI8gv37l3gF/V6oKBKM8i4HoiRlZ/0w0LuAvVReil
+l5q6UQpZdia//2wp0erLYAWPKQs933IDVQ0NqQInTGIehH+9k7HV4WfdbojIDcUH
+rk/mEyd/yC8Qo4sdmEive1MMz72wOZvs7dVWyFblfA133vzNqmU=
+=pq6H
 -----END PGP SIGNATURE-----

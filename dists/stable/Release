@@ -1,4 +1,3 @@
-cat > dists/stable/Release <<'EOF'
 Origin: Perfume Composer
 Label: Perfume Composer APT Repository
 Suite: stable
@@ -7,6 +6,5 @@ Codename: stable
 Architectures: amd64
 Components: main
 Description: Perfume Composer custom APT repository
+Date: Sat, 08 Nov 2025 10:48:56 +0000
 AppStream: appstream/Components-amd64.yml.gz
-AppStream: appstream/Components-amd64.yml
-EOF

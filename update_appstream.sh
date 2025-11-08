@@ -64,15 +64,35 @@ echo "✅ DEP-11 catalog rebuilt successfully."
 echo "🔍 Validating XML..."
 appstreamcli validate "$APPSTREAM_DIR/perfume-composer.xml.gz" || true
 
-# --- Step 5: Display summary ---
+# --- 🆕 Step 5: Add AppStream line to Release ---
+echo "📜 Updating Release file with AppStream reference..."
+RELEASE_FILE="dists/stable/Release"
+if [ -f "$RELEASE_FILE" ]; then
+    # Remove any existing old line to avoid duplicates
+    sed -i '/^AppStream:/d' "$RELEASE_FILE"
+    echo "AppStream: appstream/Components-amd64.yml.gz" >> "$RELEASE_FILE"
+    echo "✅ Added AppStream reference to Release file."
+else
+    echo "⚠️ Release file not found at $RELEASE_FILE — skipping."
+fi
+
+# --- Step 6: Sign updated Release ---
+if [ -f "$RELEASE_FILE" ]; then
+    echo "🔏 Signing Release files..."
+    gpg --clearsign -o dists/stable/InRelease dists/stable/Release
+    gpg -abs -o dists/stable/Release.gpg dists/stable/Release
+    echo "✅ Release files signed successfully."
+fi
+
+# --- Step 7: Display summary ---
 echo
 echo "🧾 Summary:"
 echo "  - XML: $APPSTREAM_DIR/perfume-composer.xml.gz"
 echo "  - DEP-11: $APPSTREAM_DIR/Components-amd64.yml.gz"
+echo "  - AppStream line added to: dists/stable/Release"
 echo
 echo "✨ AppStream data ready for git commit and push."
 
 echo
 read -rp "✅ Script finished. Press Enter to close..."
-
 
