@@ -11,5 +11,4 @@ This repository hosts the official Linux `.deb` packages, AppStream metadata, an
 - `install.sh` → One-line APT setup script
 
 ## Maintainers
-Perfume Composer Team — Crafted with 💜 by Chris & Paul
-
+Perfume Composer Team — Crafted with 💜 by Chris & Paul.
