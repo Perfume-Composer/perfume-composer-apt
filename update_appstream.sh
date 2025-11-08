@@ -84,15 +84,39 @@ if [ -f "$RELEASE_FILE" ]; then
     echo "✅ Release files signed successfully."
 fi
 
-# --- Step 7: Display summary ---
+# --- 🆕 Step 8: Extract README and CHANGELOG to docs/ ---
+echo "📚 Updating local docs folder..."
+DOCS_SRC="$TMP_DIR/usr/share/doc/perfumecomposer"
+DOCS_DIR="docs"
+mkdir -p "$DOCS_DIR"
+
+if [ -f "$DOCS_SRC/README" ]; then
+    cp "$DOCS_SRC/README" "$DOCS_DIR/README.md"
+    echo "✅ Updated README.md from package."
+else
+    echo "ℹ️ No README found in package."
+fi
+
+if [ -f "$DOCS_SRC/changelog.Debian.gz" ]; then
+    gunzip -c "$DOCS_SRC/changelog.Debian.gz" > "$DOCS_DIR/CHANGELOG.md"
+    echo "✅ Updated CHANGELOG.md from package."
+else
+    echo "ℹ️ No changelog found in package."
+fi
+
+# --- 🧹 Step 9: Remove temporary folder ---
+rm -rf "$TMP_DIR"
+echo "🧹 Temporary folder '$TMP_DIR' deleted."
+
+# --- Step 10: Display summary ---
 echo
 echo "🧾 Summary:"
 echo "  - XML: $APPSTREAM_DIR/perfume-composer.xml.gz"
 echo "  - DEP-11: $APPSTREAM_DIR/Components-amd64.yml.gz"
 echo "  - AppStream line added to: dists/stable/Release"
+echo "  - Docs updated in: $DOCS_DIR"
 echo
 echo "✨ AppStream data ready for git commit and push."
-
 echo
 read -rp "✅ Script finished. Press Enter to close..."
 
