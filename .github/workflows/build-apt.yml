@@ -160,6 +160,25 @@ jobs:
           </html>
           HTML
 
+      - name: Generate latest.json (for auto-update checks)
+        run: |
+          echo "🧩 Generating latest.json for version check..."
+          VERSION=$(basename pool/main/p/perfume-composer/PerfumeComposer_*.deb | sed 's/PerfumeComposer_\(.*\)\.deb/\1/')
+          WIN_URL="https://perfume-composer.github.io/perfume-composer-apt/windows/PerfumeComposerSetup_${VERSION}.exe"
+          DEB_URL="https://perfume-composer.github.io/perfume-composer-apt/pool/main/p/perfume-composer/PerfumeComposer_${VERSION}.deb"
+
+          cat > public/latest.json <<JSON
+          {
+            "version": "${VERSION}",
+            "windows_url": "${WIN_URL}",
+            "linux_url": "${DEB_URL}"
+          }
+          JSON
+
+          echo "✅ Created public/latest.json:"
+          cat public/latest.json
+
+
       - name: Verify public folder
         run: |
           echo "🧾 Final check of repository contents:"
