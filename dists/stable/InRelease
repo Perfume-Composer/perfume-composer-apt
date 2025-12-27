@@ -1,29 +1,36 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Origin: Perfume Composer
-Label: Perfume Composer APT Repository
-Suite: stable
-Version: 1.0
-Codename: stable
-Architectures: amd64
-Components: main
-Description: Perfume Composer custom APT repository
-Date: Sat, 08 Nov 2025 10:48:56 +0000
-AppStream: appstream/Components-amd64.yml.gz
+Date: Sat, 27 Dec 2025 21:01:17 +0000
+MD5Sum:
+ 1c40c677651469d874d90b90bc27fc23               38 Release
+ 1fda2c0668876ed8a63e691d5e19a031              448 main/binary-amd64/Packages
+ f6184046d47253f435268734295cb035              342 main/binary-amd64/Packages.gz
+SHA1:
+ b923885d1ad5bf0b70fbdd1b8902d66266f6738a               38 Release
+ 79608eca2b79c73be87792e67a3ecb0db94ad5fb              448 main/binary-amd64/Packages
+ 3f440c6a74f60cc6c0c5f88a3da8c8f5ac081c4b              342 main/binary-amd64/Packages.gz
+SHA256:
+ 276337b0e81b4998b834b0a4a6a47da0692f642c767a17c30fbae8be9dda6f2b               38 Release
+ dea4f36baca58bb042ebb06ebdee1478f89f42cab93dfa7a2d4c4ceef6a6622f              448 main/binary-amd64/Packages
+ d40356736658f706b08cbdc717f7fe14733758ca4f3b35398b95780e4087d2d3              342 main/binary-amd64/Packages.gz
+SHA512:
+ e05f362fe66bd4cbc4ce579ccdea6fa81448454259658866353175cee0c0e92e6002eb79eaae25e0b85cc4ae3d7fe074afc8a7c3c476012def84ed84a6e928c6               38 Release
+ 8e1bdda6f12f25135a5544c7be9fe1c810f57b3fa43d1436420d5105ed5a0722ee02f82865a2c99d0d44719981ecec0e253fc2ca7b08895b3e1921ec91e6bfc6              448 main/binary-amd64/Packages
+ 8c5c12f84824a4f8e91ce019c26428e0669fc7933f7947219840758ca76f7adb2db957cf134670c420df87187a09ecff3b218e1bac7056bbd5829e52550a157f              342 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmlQOuUACgkQq+NnZzRP
-+4MLLA//boXjYayPOOPX3rqruZoKPXzNNS7IAxWSohyn/ud83giWB1Oeo5x582ai
-MKHiI0vD9k7P1g1PJNiPS9AAD2QIRDeg+M1dIQ6k2qYkb9DfEvoy8kTC0CFVfZZf
-CyRQFiiD0KlMdieJpJ1TShlIKdRkdNyF/QEWXkn7s3P0b5BypXlDWQvbxO5Byl8Z
-JA4lklgBBzIucH5CxKL+qS3SKmJq9eqGV6WCI3qAruiFahQjepEBLCf8tq8RCgbM
-rB73V22vE2Brhob2YWGl7/QTdkpWYeUU4fPg6F7tN6gg8TgfKeYuGpzoNWX0cb0v
-ZRCHzBTEO4asLtAKZ/39kllJ2CIHJKPplZpsm9Wy7kLVeFS5t7Ir28FUXYPKs+Un
-BytUsJCGEahcT3l8pQ1cthLVUa5Z2EeTsmj5asDuD7uXdEKbonjwdG2T//nFpdSc
-sSxPh4+PQ7AGXCAgY0u6BzlQMlT+C1C9nmlqqvAr+C0AfNRttbtm36cVgWxomGDC
-9SkNqnjECnIGjha7pXW/RUsHGX71O4CL8i1DMlLmt7dJrdUDtnf73qw09o/ddbDI
-q2RbJT+dSe/FhWs+eQAicexH1cWKY6V4GJrVq5mHNHUh16xQ9AbWQR1aLPgNDX42
-3izP828C/aP0IoyhBIOEPzIsTE2IJBSGqXn7/uyhwvy96YIeYew=
-=N+oF
+iQIzBAEBCgAdFiEEkI8ljIoTaDK+zZXhq+NnZzRP+4MFAmlQSSEACgkQq+NnZzRP
++4N+OxAAwOq2sSpHvAtMD7PPWMjLTJKsVWT0vOYAZqrkjGyuCuiqYp+L/Ui+Ej6M
+Bhy2lKgHyeRBqCOpn1Ve/oiTs213b+q7OuMxiu5NZFP3tDBtxpJ1xx+yMmT5uPyf
+0/G7lbc9C0HYszUtayd7HrJxWDdnSgkT1Jby3WxJlyAX5OpiJxxbBOoSsFsZIt5U
+bCObb/s+GEagnRwWRJGunrQZ04FZbx0ATBzYLHLZLc5hqkkp0uAX0L5bY5EATlS3
+4zQ2fRNgeNs105w6xUuHI+Pu2T0gujB/zcCNIX0wFP6fo2/Li1kGzh3lJqDWSuD5
+RWOfxA+7aoauAwIphpRpATWj1M2QJHodHwg9Z6IxnKQfBnf3KFaRfXlHGC9VxIbd
+qBxJZGlBH43hyM2kV62QKSkbu0WtbNYIb1CjAFCZpSjibU7s3EivYXNSFsXLrdBM
+jreh4jno1CRq6+63x/SsU6KHsMdhW5mHgZXepf4dJkUCRueMACQ4RKcKnhekeBvS
+jMpk5KYg6VAO0gr85mnyWOCS8RAZBO17MxfQDs7orVsntZgtWs+VEsKBoAGdwBf+
+XtUuhET7KWt5rFgT9EQdAYdSrCrpO+EwdO9XRdDUBkztW2Xla+dglXO2h8eUkDIR
+NfBFpEUB+RcihibZy9vVFJSO8NNVj69uuWpVnPxGqAuIxjNElrA=
+=C9S+
 -----END PGP SIGNATURE-----
