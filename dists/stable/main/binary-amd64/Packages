@@ -1,12 +1,12 @@
 Package: perfumecomposer
-Version: 1.0.5
+Version: 1.0.6
 Architecture: amd64
 Maintainer: Christopher <perfumecomposer@gmail.com>
-Filename: pool/main/p/perfume-composer/PerfumeComposer_1.0.5.deb
-Size: 49523028
-MD5sum: ebf2e66a4608e1f656e25314dbc5e80d
-SHA1: e2e1d02621c622a12cbd064180b63f37d0c2abf7
-SHA256: 1bde7d9e566c0b53e584b4102bf7a5fbf7f4587ad29b49c532bd59740f714766
+Filename: pool/main/p/perfume-composer/PerfumeComposer_1.0.6.deb
+Size: 49522236
+MD5sum: 6d6dc2a1ed4b8eb43d93831a18a2f762
+SHA1: b56aa6ee1f5e98d7e4c6806d64f060248f601156
+SHA256: e46d0e8eb12cd110f61c9420a7acb122c98d2177f6b02afca5ceff3b226d9388
 Section: utils
 Priority: optional
 Description: Program designed for the professional perfumer
