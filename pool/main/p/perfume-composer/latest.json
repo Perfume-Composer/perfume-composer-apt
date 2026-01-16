@@ -1,5 +1,5 @@
 {
-  "version": "1.0.9",
-  "windows_url": "https://perfume-composer.github.io/perfume-composer-apt/windows/PerfumeComposerSetup_1.0.9.exe",
-  "linux_url": "https://perfume-composer.github.io/perfume-composer-apt/pool/main/p/perfume-composer/PerfumeComposer_1.0.9.deb"
+  "version": "1.0.10",
+  "windows_url": "https://perfume-composer.github.io/perfume-composer-apt/windows/PerfumeComposerSetup_1.0.10.exe",
+  "linux_url": "https://perfume-composer.github.io/perfume-composer-apt/pool/main/p/perfume-composer/PerfumeComposer_1.0.10.deb"
 }
