@@ -35,6 +35,10 @@ dpkg-scanpackages -m pool/main > "$PKG_DIR/Packages"
 gzip -kf "$PKG_DIR/Packages"
 
 # Release
+rm -f "$DISTS_DIR/$SUITE/Release" \
+      "$DISTS_DIR/$SUITE/InRelease" \
+      "$DISTS_DIR/$SUITE/Release.gpg"
+
 apt-ftparchive release "$DISTS_DIR/$SUITE" > "$DISTS_DIR/$SUITE/Release"
 
 # Sign Release
