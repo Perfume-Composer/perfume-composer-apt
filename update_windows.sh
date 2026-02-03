@@ -73,7 +73,7 @@ fi
 
 # --- Commit and push new installer ---
 echo "🪄 Committing and pushing new Windows installer..."
-git add "$INSTALLER_VERSIONED" || true
+git add -A "$WINDOWS_DIR" || true
 git commit -m "Update Windows installer for version ${VERSION}" || echo "🟡 Nothing new to commit."
 git push origin main || echo "⚠️  Push skipped or already up-to-date."
 
