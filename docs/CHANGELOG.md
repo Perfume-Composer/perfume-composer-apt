@@ -1,4 +1,4 @@
-## v1.0.20 — Initial Public Release
+## v1.0.21 — Initial Public Release
 - First stable cross-platform version of Perfume Composer.
 - Includes AppStream integration for Software Manager.
 - Added APT repository and Windows installer.
